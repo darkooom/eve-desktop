@@ -586,7 +586,7 @@ class DictationOverlayTests(unittest.TestCase):
 const classes = new Set(), body = { classList: { add: (...c) => c.forEach(x => classes.add(x)), remove: (...c) => c.forEach(x => classes.delete(x)), contains: c => classes.has(c) } };
 const document = { body, createElement: () => ({}) }, dn = { className: '', textContent: '', kids: [], append(...a) { this.kids.push(...a); } };
 let states = [], fits = 0, listening = true, boost = 2;
-const $ = id => id === 'dn' ? dn : { style: {} }, setState = s => states.push(s), fit = () => { fits++; }, post = () => {};
+const familiar = {setLevel() {}}, $ = id => id === 'dn' ? dn : { style: {} }, setState = s => states.push(s), fit = () => { fits++; }, post = () => {};
 ''' + helper + 'const ui = {\n' + methods + r'''};
 const fail = m => { console.error(m); process.exit(1); }, state = () => ['finishing', 'done', 'said'].filter(c => classes.has(c)).join();
 classes.add('dictate', 'hearing', 'locked');
@@ -613,7 +613,7 @@ const kids = [], thread = { children: kids, get firstElementChild() { return kid
 const node = () => { const n = { classList: set(), className: '', remove: () => kids.splice(kids.indexOf(n), 1), prepend() {}, firstChild: { classList: set() } }; return n; };
 const document = { body: { classList: set() }, createElement: node }, card = { classList: set() };
 const $ = id => id === 'thread' ? thread : id === 'card' ? card : { children: [], value: '' };
-const miniClear = () => {}, clockStop = () => {}, comp = () => {}, markShot = () => '', setState = () => {}, status = () => {}, fit = () => {}, pill = () => {};
+const discardApproval = () => {}, clearSlow = () => {}, miniClear = () => {}, clockStop = () => {}, comp = () => {}, markShot = () => '', setState = () => {}, status = () => {}, fit = () => {}, pill = () => {};
 let hover, listening, working, boost, atBottom;
 ''' + helper + r'''
 const ui = {

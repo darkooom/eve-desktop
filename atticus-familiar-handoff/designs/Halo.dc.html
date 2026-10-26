@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Halo overlay states</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#38D6FF}a:hover{color:#8BE6FF}
+.tile{position:relative;border-radius:14px;overflow:hidden}
+.cap{font:500 12px 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:#6E6E73;margin:0 0 10px}
+.bar{position:absolute;left:0;right:0;top:0;height:30px;background:rgba(255,255,255,.35);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+.notch{position:absolute;left:50%;top:0;width:170px;height:30px;margin-left:-85px;background:#000;border-radius:0 0 12px 12px}
+.win{position:absolute;border-radius:10px;background:rgba(255,255,255,.55);box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.sheet{position:absolute;left:50%;top:0;width:456px;margin-left:-228px;box-sizing:border-box;background:#000;border-radius:14px 14px 28px 28px;color:#FFFFFF;font-family:Inter,-apple-system,system-ui,sans-serif;padding:40px 18px 18px}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.ib{display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:12px;background:#0D0D0F;color:#FFFFFF;padding:0;cursor:pointer}
+.ib:focus-visible,.btn:focus-visible{outline:2px solid #38D6FF;outline-offset:2px}
+.btn{flex:1;height:40px;border-radius:12px;font:500 14px Inter,system-ui,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+</style>
+</helmet>
+<div style="width:1600px;height:1400px;box-sizing:border-box;padding:56px 64px;background:#EFEFF1;font-family:Inter,system-ui,sans-serif;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 32px;align-content:start">
+
+<!-- LISTENING -->
+<div>
+<p class="cap">Listening · top edge glows ice</p>
+<div class="tile" style="height:560px;background:{{wall}}">
+<div class="win" style="left:50px;top:140px;width:380px;height:320px"></div>
+<div class="bar"></div>
+<div style="position:absolute;left:0;right:0;top:0;height:3px;background:#9BE7FF;box-shadow:0 0 40px 10px rgba(155,231,255,.35)"></div>
+<div style="position:absolute;left:50%;top:0;width:360px;height:76px;margin-left:-180px;box-sizing:border-box;padding:34px 18px 0;background:#000;border-radius:14px 14px 22px 22px;display:flex;align-items:center;gap:12px;color:#fff">
+<svg width="44" height="20" viewBox="0 0 44 20" aria-hidden="true"><path d="M1 10 Q5 2 9 10 T17 10 T25 10 T33 10 T43 10" fill="none" stroke="#9BE7FF" stroke-width="2" stroke-linecap="round"></path></svg>
+<span style="font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Move Chrome to the left<span style="display:inline-block;width:1.5px;height:15px;margin-left:2px;vertical-align:-2px;background:#9BE7FF"></span></span>
+</div>
+</div>
+</div>
+
+<!-- WORKING -->
+<div>
+<p class="cap">Working · cyan comet on the edge</p>
+<div class="tile" style="height:560px;background:{{wall}}">
+<div class="win" style="left:30px;top:100px;width:420px;height:400px"></div>
+<div class="bar"></div>
+<div style="position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,transparent 0%,rgba(56,214,255,.15) 40%,#38D6FF 70%,transparent 78%)"></div>
+<div class="sheet" style="box-shadow:0 18px 50px rgba(0,0,0,.5),inset 0 -1px 0 rgba(56,214,255,.5),inset 0 -12px 24px -12px rgba(56,214,255,.35)">
+<div style="display:flex;align-items:center;gap:12px">
+<div style="position:relative;width:96px;height:4px;border-radius:2px;background:rgba(56,214,255,.18)"><div style="position:absolute;left:0;top:0;bottom:0;width:62%;border-radius:2px;background:#38D6FF;box-shadow:0 0 10px #38D6FF"></div></div>
+<span style="flex:1;font-size:13px;font-weight:500">Amazon · step 4</span>
+<span class="mono" style="font-size:12px;color:#9A9AA0">0:14</span>
+<button class="ib" aria-label="Stop"><svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><rect width="10" height="10" rx="2" fill="#FF5A52"></rect></svg></button>
+</div>
+<div style="font-size:13px;color:#9A9AA0;margin-top:6px">Find a desk lamp under $30</div>
+<div style="position:relative;margin-top:12px;height:262px;border-radius:12px;overflow:hidden;background:#FAFAFA">
+<div style="height:22px;background:#ECECEE"></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:12px">
+<div style="height:96px;border-radius:4px;background:#E4E4E7"></div><div style="height:96px;border-radius:4px;background:#E4E4E7"></div><div style="height:96px;border-radius:4px;background:#E4E4E7"></div>
+<div style="height:96px;border-radius:4px;background:#E4E4E7"></div><div style="height:96px;border-radius:4px;background:#E4E4E7"></div><div style="height:96px;border-radius:4px;background:#E4E4E7"></div>
+</div>
+<div style="position:absolute;left:8px;top:30px;display:flex;align-items:center;gap:6px;height:22px;padding:0 9px;border-radius:11px;background:rgba(0,0,0,.8);font:500 11px Inter,sans-serif;color:#fff"><span style="width:6px;height:6px;border-radius:50%;background:#38D6FF;box-shadow:0 0 6px #38D6FF"></span>Chrome · amazon.com</div>
+<div style="position:absolute;left:250px;top:170px;width:24px;height:24px;border-radius:50%;border:1px solid #38D6FF;background:rgba(56,214,255,.22)"></div>
+</div>
+<div style="display:flex;gap:18px;margin-top:12px;font-size:12px"><span style="color:#9A9AA0"><span style="color:#34E27A">✓</span> Sorted by price</span><span>▸ Reading results…</span></div>
+</div>
+</div>
+</div>
+
+<!-- ANSWER -->
+<div>
+<p class="cap">Answer · then collapses to a peek</p>
+<div class="tile" style="height:560px;background:{{wall}}">
+<div class="win" style="left:60px;top:250px;width:360px;height:250px"></div>
+<div class="bar"></div>
+<div class="sheet" style="box-shadow:0 18px 50px rgba(0,0,0,.5),inset 0 -1px 0 rgba(52,226,122,.4)">
+<div style="display:flex;align-items:center;gap:12px">
+<div style="width:96px;height:2px;border-radius:1px;background:rgba(52,226,122,.55)"></div>
+<span class="mono" style="flex:1;font-size:12px;color:#9A9AA0">4.8s</span>
+<button class="ib" aria-label="Ask again"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6M13 2.5V5h-2.5"></path></svg></button>
+<button class="ib" aria-label="Copy answer"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="2"></rect><path d="M3 10.5V4a1.5 1.5 0 0 1 1.5-1.5H11"></path></svg></button>
+</div>
+<div style="margin-top:12px;font-size:15px;line-height:22px"><code class="mono" style="font-size:13.5px;background:#0D0D0F;padding:1px 5px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)">user</code> is undefined on line 42: the fetch resolves after render. Guard it with <code class="mono" style="font-size:13.5px;background:#0D0D0F;padding:1px 5px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)">if (!user) return null</code>.</div>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:24px;text-align:center;font:500 11px 'IBM Plex Mono',monospace;color:#6E6E73;letter-spacing:.06em">AFTER 6S WITHOUT HOVER ↓</div>
+</div>
+<div class="tile" style="height:0"></div>
+</div>
+
+<!-- APPROVAL -->
+<div>
+<p class="cap">Approval · all four edges amber</p>
+<div class="tile" style="height:560px;background:{{wall}}">
+<div class="win" style="left:30px;top:120px;width:420px;height:380px"></div>
+<div class="bar"></div>
+<div style="position:absolute;inset:0;border-radius:14px;box-shadow:inset 0 0 0 3px #FFB020,inset 0 0 40px 6px rgba(255,176,32,.35);pointer-events:none"></div>
+<div class="sheet" style="box-shadow:0 18px 50px rgba(0,0,0,.5),inset 0 -1px 0 rgba(255,176,32,.5),inset 0 -12px 24px -12px rgba(255,176,32,.35)">
+<div style="display:flex;align-items:center;gap:12px">
+<div style="width:96px;height:4px;border-radius:2px;background:#FFB020;box-shadow:0 0 10px #FFB020"></div>
+<span style="flex:1;font-size:13px;font-weight:500;color:#FFB020">Needs you</span>
+<span class="mono" style="font-size:12px;color:#9A9AA0">0:58</span>
+</div>
+<div style="font-size:13px;color:#9A9AA0;margin-top:14px">Send this email to</div>
+<div style="font-size:20px;line-height:26px;font-weight:600;margin-top:2px">anna.berg@northwind.io</div>
+<div style="font-size:13px;color:#FFB020;margin-top:6px">⚠ First time you're emailing this address</div>
+<div style="font-size:13px;color:#C7C7CC;margin-top:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Re: Thursday sync · "Thursday works, send me a time…" ▸</div>
+<button style="margin-top:8px;border:0;background:none;padding:0;font:500 12.5px Inter,sans-serif;color:#9A9AA0;cursor:pointer">Exact command ▸</button>
+<div style="display:flex;gap:8px;margin-top:16px">
+<button class="btn" style="border:0;background:#1C1C1F;color:#fff">Don't send <span class="mono" style="font-size:11px;opacity:.6">esc</span></button>
+<button class="btn" style="border:0;background:#FFB020;color:#1A1205">Send to anna.berg</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- DICTATION + PEEK -->
+<div>
+<p class="cap">Dictation + collapsed peek · capsule only</p>
+<div class="tile" style="height:560px;background:{{wall}}">
+<div class="bar"></div>
+<div style="position:absolute;left:0;right:0;top:0;height:3px;background:#9BE7FF;box-shadow:0 0 30px 6px rgba(155,231,255,.3)"></div>
+<div style="position:absolute;left:50%;top:0;width:220px;height:30px;margin-left:-110px;box-sizing:border-box;padding:0 16px;background:#000;border-radius:0 0 15px 15px;display:flex;align-items:center;gap:10px;color:#fff">
+<svg width="60" height="14" viewBox="0 0 60 14" aria-hidden="true"><path d="M1 7 Q4 1 7 7 T13 7 T19 7 T25 7 T31 7 T37 7 T43 7" fill="none" stroke="#9BE7FF" stroke-width="1.8" stroke-linecap="round"></path></svg>
+<span class="mono" style="font-size:12px;color:#9A9AA0">0:03</span>
+</div>
+<div style="position:absolute;left:0;right:0;top:110px;display:flex;flex-direction:column;align-items:center;gap:26px">
+<div style="display:flex;align-items:center;gap:10px;height:30px;padding:0 16px;border-radius:15px;background:#000;box-shadow:inset 0 0 0 1px #FFB020;color:#fff">
+<svg width="40" height="14" viewBox="0 0 40 14" aria-hidden="true"><path d="M1 7 Q4 1 7 7 T13 7 T19 7 T25 7" fill="none" stroke="#9BE7FF" stroke-width="1.8" stroke-linecap="round"></path></svg>
+<span style="font-size:12.5px;color:#FFB020">◉ locked</span>
+</div>
+<div style="display:grid;place-items:center;width:52px;height:30px;border-radius:15px;background:#000">
+<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3L12.5 5" fill="none" stroke="#34E27A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</div>
+<div style="display:flex;align-items:center;gap:10px;height:30px;padding:0 14px;border-radius:15px;background:#000;color:#fff;font-size:12.5px">
+<span style="width:7px;height:7px;border-radius:50%;background:#34E27A"></span>Answer ready <span style="color:#9A9AA0">⌄</span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- FILAMENT STATES -->
+<div>
+<p class="cap">Orb → filament + emitted light</p>
+<div class="tile" style="height:560px;background:#000;display:flex;flex-direction:column;justify-content:center;gap:26px;padding:32px 40px;box-sizing:border-box;color:#fff">
+<div style="display:flex;align-items:center;gap:18px"><svg width="120" height="16" viewBox="0 0 120 16" aria-hidden="true"><path d="M1 8 Q6 1 11 8 T21 8 T31 8 T41 8 T51 8 T61 8 T71 8" fill="none" stroke="#9BE7FF" stroke-width="2" stroke-linecap="round"></path></svg><span style="font-size:13px">Listening</span><span class="mono" style="margin-left:auto;font-size:11px;color:#9A9AA0">#9BE7FF</span></div>
+<div style="display:flex;align-items:center;gap:18px"><div style="width:120px;display:flex;justify-content:center"><span style="width:8px;height:8px;border-radius:50%;background:#B69CFF;box-shadow:0 0 12px #B69CFF"></span></div><span style="font-size:13px">Thinking</span><span class="mono" style="margin-left:auto;font-size:11px;color:#9A9AA0">#B69CFF</span></div>
+<div style="display:flex;align-items:center;gap:18px"><div style="position:relative;width:120px;height:4px;border-radius:2px;background:rgba(56,214,255,.18)"><div style="position:absolute;left:0;top:0;bottom:0;width:62%;border-radius:2px;background:#38D6FF;box-shadow:0 0 10px #38D6FF"></div></div><span style="font-size:13px">Working</span><span class="mono" style="margin-left:auto;font-size:11px;color:#9A9AA0">#38D6FF</span></div>
+<div style="display:flex;align-items:center;gap:18px"><div style="width:120px;height:4px;border-radius:2px;background:#FFB020;box-shadow:0 0 10px #FFB020"></div><span style="font-size:13px">Needs you</span><span class="mono" style="margin-left:auto;font-size:11px;color:#9A9AA0">#FFB020</span></div>
+<div style="display:flex;align-items:center;gap:18px"><div style="width:120px;height:2px;border-radius:1px;background:#34E27A"></div><span style="font-size:13px">Done</span><span class="mono" style="margin-left:auto;font-size:11px;color:#9A9AA0">#34E27A</span></div>
+<div style="display:flex;align-items:center;gap:18px"><div style="width:120px;height:2px;border-radius:1px;background:repeating-linear-gradient(90deg,#FF5A52 0 14px,transparent 14px 20px)"></div><span style="font-size:13px">Error</span><span class="mono" style="margin-left:auto;font-size:11px;color:#9A9AA0">#FF5A52</span></div>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"wallpaper":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":1600,"height":1400}}'>
+class Component extends DCLogic {
+renderVals() {
+const dark = (this.props.wallpaper ?? 'light') === 'dark';
+return { wall: dark ? 'linear-gradient(160deg,#2A2D35,#14161B)' : 'linear-gradient(160deg,#FFFFFF,#E7E9EE)' };
+}
+}
+</script>
+</body>
+</html>

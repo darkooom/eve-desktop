@@ -83,7 +83,7 @@ picked = 0; prevented = false; ask.value = 'version '; key('2'); if (picked || p
     def test_failed_dictation_offers_its_words_to_copy(self):
         dictated = self.box[self.box.index('    dictated({'):self.box.index('    learned(word)')]
         node(self, r'''let sent, button;
-const fit = () => {}, setState = () => {}, $ = () => ({ style: {} }), post = m => { sent = m; };
+const fit = () => {}, setState = () => {}, familiar = {setLevel() {}}, $ = () => ({ style: {} }), post = m => { sent = m; };
 let listening = true, boost = 1;
 const document = { body: { classList: { remove() {} } }, createElement: () => ({}) }, pill = () => ({ append: (...a) => { button = a[1]; } });
 const ui = {''' + dictated + r'''};
@@ -93,6 +93,59 @@ if (sent?.copy !== 'my words' || button.textContent !== 'Copied') process.exit(1
 ui.dictated({ text: 'Couldn’t insert. Press ⌃⌘V to paste it.', ok: false, history: true }); button.onclick();
 if (sent?.dictationHistory !== true || button.textContent !== 'History') process.exit(1);
 ''')
+
+    def test_familiar_overlay_uses_bundled_fonts_and_tokens(self):
+        self.assertIn("font-family:'Bricolage Grotesque'", self.box)
+        self.assertIn("font-family:'Geist'", self.box)
+        self.assertIn("font-family:'Geist Mono'", self.box)
+        self.assertGreater(self.box.count('data:font/woff2;base64,'), 3)
+        self.assertNotRegex(self.box, r'https?://[^\s\"\']+\.(?:woff2?|ttf)')
+        for token in ('--volt:#D4FF3A', '--panel-solid:#15160F', '--paper:#F3F0E6', '--radius-panel:28px'):
+            self.assertIn(token, self.box)
+        self.assertGreaterEqual(contrast('#A9A797', '#15160F'), 4.5)
+
+    def test_familiar_replaces_the_overlay_canvas_without_an_idle_frame_loop(self):
+        orbs = (ROOT / 'ui/orbs.js').read_text()
+        self.assertIn('<div id="orb"></div>', self.box)
+        self.assertNotIn('<canvas id="orb"', self.box)
+        init = self.box[self.box.index("const familiar = E.createFamiliar"):self.box.index('  const turn =')]
+        self.assertNotIn('requestAnimationFrame', init)
+        self.assertIn('stdDeviation="8"', orbs)
+        self.assertIn('0 0 0 22 -10', orbs)
+        self.assertIn('surfaceScale="6"', orbs)
+        self.assertIn('specularExponent="28"', orbs)
+        self.assertIn('x="-34" y="-70" z="110"', orbs)
+
+    def test_familiar_maps_existing_states_and_agent_colours(self):
+        orbs = (ROOT / 'ui/orbs.js').read_text()
+        for mapping in ("breathing: 'idle'", "listening: 'listening'", "solving: 'thinking'",
+                        "searching: 'searching'", "working: 'working'", "connecting: 'connecting'",
+                        "approval: 'alert'", "error: 'sad'", "stopped: 'shrug'"):
+            self.assertIn(mapping, orbs)
+        for colour in ('#7CF5FF', '#FF9BE0', '#B9A6FF'):
+            self.assertIn(colour, orbs)
+        self.assertIn('E.createFamiliar(c,{agent:row.id,reduced})', self.box)
+
+    def test_approval_gate_hold_and_expiry_are_explicit(self):
+        block = self.box[self.box.index('  const approvalModel'):self.box.index('    improve()')]
+        self.assertIn('gateMs = 900 + 220 * rows.length', block)
+        self.assertIn('armMs = m.hold ? 0 : 600', block)
+        self.assertIn('readyMs = Math.max(gateMs, armMs)', block)
+        self.assertIn("const hold = purchase || permanent || newRecipient", block)
+        self.assertIn('m.high ? 1200 : 800', block)
+        self.assertIn("reason === 'expired'", block)
+        self.assertIn("post({ allow:false })", block)
+        self.assertIn('Exaktes Kommando ▸', block)
+        self.assertIn('Gesperrt · wird geprüft', block)
+        self.assertNotIn('>Allow<', block)
+
+    def test_reduce_motion_keeps_security_timing_and_only_gaze_highlights(self):
+        reduced = self.box[self.box.index('@media (prefers-reduced-motion: reduce)'):self.box.index('</style>')]
+        self.assertIn('.familiar-pupil', reduced)
+        self.assertIn('.risk-field', reduced)
+        self.assertIn('.approval-actions button.go::before', reduced)
+        approval = self.box[self.box.index('  const buildApproval'):self.box.index('  window.ui =')]
+        self.assertNotIn('reduced.matches ?', approval)
 
     def test_agent_start_releases_an_empty_typed_composer_for_the_fade(self):
         started = self.box[self.box.index('    agentStarted(row)'):self.box.index('    agentSteered(row)')]

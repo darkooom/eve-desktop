@@ -135,7 +135,7 @@ func play(_ i:Int){
   return}
  web.evaluateJavaScript(scenes[i].1){_,error in guard error == nil else{print("scene failed: \(scenes[i].0): \(error!)");exit(1)};after(1.3){
   let check=i==0 ? "(()=>{const a=['status','agents-pill','mode','x'].map(x=>document.getElementById(x).getBoundingClientRect()),c=a.map(x=>x.y+x.height/2),s=document.querySelector('#status span');return Math.max(...c)-Math.min(...c)<1&&s.scrollWidth>s.clientWidth&&getComputedStyle(s).textOverflow==='ellipsis'})()" :
-            i==2 ? "!!document.querySelector('.agent-ack canvas')&&document.querySelector('.agent-ack span').textContent==='Told the Cheapest e-bikes on Amazon agent: Only include products under $200.'" : "true"
+            i==2 ? "!!document.querySelector('.agent-ack .familiar-host')&&document.querySelector('.agent-ack span').textContent==='Told the Cheapest e-bikes on Amazon agent: Only include products under $200.'" : "true"
   web.evaluateJavaScript(check){value,error in guard error == nil,value as? Bool == true else{print("scene check failed: \(scenes[i].0): \(String(describing:error)) \(String(describing:value))");exit(1)};shot(scenes[i].0){play(i+1)}}}}}
 bridge.ready={after(1.0){play(0)}}
 nsapp.run()'''

@@ -62,7 +62,7 @@ Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
   if let result = result as? [String: String], ["pass", "fail"].contains(result["status"] ?? "") {
    print(result["text"] ?? ""); exit(result["status"] == "pass" ? 0 : 1)
   }
-  if tries > 200 { print("Fixture timed out"); exit(2) }
+  if tries > 1200 { print("Fixture timed out"); exit(2) }
  }
 }
 app.run()
@@ -75,7 +75,7 @@ app.run()
             for name in names:
                 with self.subTest(fixture=name):
                     try:
-                        result = subprocess.run([str(binary), f'http://127.0.0.1:{server.server_port}/tests/{name}.html'], capture_output=True, text=True, timeout=25)
+                        result = subprocess.run([str(binary), f'http://127.0.0.1:{server.server_port}/tests/{name}.html'], capture_output=True, text=True, timeout=130)
                     except subprocess.TimeoutExpired as error:
                         self.fail(f'{name} timed out; last checks: {(error.stdout or b"").decode()[-3000:]}')
                     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)

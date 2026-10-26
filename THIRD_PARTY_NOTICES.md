@@ -1,6 +1,10 @@
 # Third-party notices
 
-EVE Desktop preserves the upstream notices in `LICENSE` and `LICENSE-Plip`. The optional ElevenLabs runtime is installed from the exact versions in `elevenlabs-runtime/package-lock.json` and includes these packages:
+EVE Desktop preserves the upstream notices in `LICENSE` and `LICENSE-Plip`.
+
+The Familiar overlay bundles Bricolage Grotesque (Atelier Triay) and Geist / Geist Mono (Vercel), all under the SIL Open Font License 1.1. Their complete license texts ship beside the source font files in `ui/fonts/OFL-Bricolage-Grotesque.txt` and `ui/fonts/OFL-Geist.txt`. The same font bytes are embedded into `ui/ui.html` as data URLs because the native overlay loads that HTML without a base URL.
+
+The optional ElevenLabs runtime is installed from the exact versions in `elevenlabs-runtime/package-lock.json` and includes these packages:
 
 | Package | Version | License |
 |---|---:|---|

@@ -970,4 +970,127 @@ const shut = s => {   // a streamed line waits at a **bold, `code, [link or $mat
   const block = b.search(/(?<!\\)\$\$|\\[[(]/); if (block >= 0) open.push(block);   // $$, \[ or \( math still open, even lines back
   return !open.length || (s.match(/^\s*```/gm) || []).length % 2 ? s : s.slice(0, Math.min(...open));   // inside a code block every mark is text
 };
-export { MML, markdown, shut };
+
+// Familiar — the Ask overlay's character. It is intentionally timer- and CSS-driven:
+// when it is idle there is no requestAnimationFrame loop consuming power.
+const FAMILIAR_COLORS = ['#7CF5FF', '#FF9BE0', '#B9A6FF'];
+const FAMILIAR_STATES = {
+  breathing: 'idle', idle: 'idle', listening: 'listening', solving: 'thinking', thinking: 'thinking',
+  searching: 'searching', working: 'working', connecting: 'connecting', approval: 'alert', alert: 'alert',
+  done: 'pleased', pleased: 'pleased', error: 'sad', sad: 'sad', stopped: 'shrug', shrug: 'shrug',
+  paused: 'paused', mic: 'mic-missing', 'mic-missing': 'mic-missing'
+};
+let familiarSerial = 0;
+
+function familiarMarkup(id, color) {
+  return `<svg class="familiar-svg" viewBox="-56 -56 112 112" role="img" aria-label="EVE Familiar">
+    <defs>
+      <radialGradient id="${id}-body" cx="31%" cy="24%" r="82%">
+        <stop offset="0" stop-color="#F7FFC8"/><stop offset=".24" stop-color="${color}"/>
+        <stop offset=".72" stop-color="#9CBF14"/><stop offset="1" stop-color="#536509"/>
+      </radialGradient>
+      <filter id="${id}-goo" x="-45%" y="-45%" width="190%" height="190%" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -10" result="goo"/>
+        <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+      </filter>
+      <filter id="${id}-jelly" x="-45%" y="-45%" width="190%" height="190%" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="soft"/>
+        <feSpecularLighting in="soft" surfaceScale="6" specularConstant="1.1" specularExponent="28" lighting-color="#FFFFFF" result="shine">
+          <fePointLight x="-34" y="-70" z="110"/>
+        </feSpecularLighting>
+        <feComposite in="shine" in2="SourceAlpha" operator="in" result="shineCut"/>
+        <feComposite in="SourceGraphic" in2="shineCut" operator="arithmetic" k1="1" k2="1" k3="0" k4="0"/>
+      </filter>
+      <filter id="${id}-shadow" x="-50%" y="-50%" width="200%" height="220%">
+        <feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#050705" flood-opacity=".44"/>
+      </filter>
+    </defs>
+    <g class="familiar-squash">
+      <g class="familiar-shadow" filter="url(#${id}-shadow)">
+        <g class="familiar-goo" filter="url(#${id}-goo)">
+          <circle class="familiar-satellite one" cx="-26" cy="19" r="11"/>
+          <circle class="familiar-satellite two" cx="29" cy="-17" r="9"/>
+          <path class="familiar-body" d="M0-39C24-39 40-22 40 1c0 25-18 40-41 40S-41 25-41 1C-41-23-24-39 0-39Z" fill="url(#${id}-body)" filter="url(#${id}-jelly)"/>
+        </g>
+        <path class="familiar-rim" d="M-28-25C-15-38 8-42 27-28" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".34"/>
+      </g>
+      <g class="familiar-eye">
+        <ellipse class="familiar-eye-white" cx="0" cy="1" rx="17" ry="19" fill="#F9FFF9"/>
+        <g class="familiar-pupil"><circle cx="0" cy="2" r="8" fill="#11150F"/><circle cx="-2.4" cy="-.5" r="2.6" fill="#fff" opacity=".9"/></g>
+        <path class="familiar-happy" d="M-11 2Q0 13 11 2" fill="none" stroke="#11150F" stroke-width="4.5" stroke-linecap="round"/>
+        <path class="familiar-closed" d="M-12 3Q0 10 12 3" fill="none" stroke="#11150F" stroke-width="4.5" stroke-linecap="round"/>
+      </g>
+      <path class="familiar-mouth" d="M-7 22Q0 18 7 22" fill="none" stroke="#173A40" stroke-width="3" stroke-linecap="round" opacity="0"/>
+      <path class="familiar-slash" d="M-13-12L14 16" fill="none" stroke="#FF816F" stroke-width="5" stroke-linecap="round" opacity="0"/>
+    </g>
+  </svg>`;
+}
+
+function createFamiliar(root, options = {}) {
+  if (!root) return null;
+  root._familiar?.destroy();
+  const id = `familiar-${++familiarSerial}`;
+  const reducedQuery = options.reduced || (typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false });
+  const agentSeed = String(options.agent || '');
+  const color = options.color || (agentSeed ? FAMILIAR_COLORS[parseInt(agentSeed.slice(0, 8), 16) % FAMILIAR_COLORS.length || 0] : '#D4FF3A');
+  root.classList.add('familiar-host'); root.innerHTML = familiarMarkup(id, color).replace(/>\s+</g, '><').trim();
+  let state = '', blinkTimer = 0, breatheTimer = 0, stepTimer = 0, visible = true;
+  const clearBlink = () => { clearTimeout(blinkTimer); blinkTimer = 0; };
+  const clearBreathe = () => { clearTimeout(breatheTimer); breatheTimer = 0; };
+  const lookAt = (x = 0, y = 0, quick = false) => {
+    const n = Math.hypot(x, y), scale = n > 7 ? 7 / n : 1;
+    root.style.setProperty('--look-x', `${x * scale}px`); root.style.setProperty('--look-y', `${y * scale}px`);
+    root.classList.toggle('quick-look', !!quick);
+    if (quick) setTimeout(() => root.classList.remove('quick-look'), 140);
+  };
+  const scheduleBlink = () => {
+    clearBlink();
+    if (!visible || reducedQuery.matches || ['pleased', 'mic-missing'].includes(state)) return;
+    blinkTimer = setTimeout(() => {
+      if (!root.isConnected || !visible) return;
+      root.classList.add('blink'); setTimeout(() => root.classList.remove('blink'), 150); scheduleBlink();
+    }, 3000 + Math.random() * 3000);
+  };
+  const scheduleBreathe = () => {
+    clearBreathe();
+    if (!visible || reducedQuery.matches || state !== 'idle') return;
+    breatheTimer = setTimeout(() => {
+      root.classList.remove('breathe'); void root.offsetWidth; root.classList.add('breathe');
+      setTimeout(() => root.classList.remove('breathe'), 1050); scheduleBreathe();
+    }, 4000);
+  };
+  const setState = next => {
+    state = FAMILIAR_STATES[next] || next || 'idle';
+    for (const c of [...root.classList]) if (c.startsWith('is-')) root.classList.remove(c);
+    root.classList.add(`is-${state}`); root.dataset.state = state;
+    root.setAttribute('aria-label', ({idle:'EVE ist bereit',listening:'EVE hört zu',thinking:'EVE denkt nach',searching:'EVE sucht',working:'EVE arbeitet',connecting:'EVE verbindet',alert:'Freigabe erforderlich',pleased:'Erledigt',sad:'EVE ist traurig',shrug:'Abgebrochen',paused:'EVE ist pausiert','mic-missing':'Mikrofon fehlt'})[state] || 'EVE Familiar');
+    lookAt(0, 0); scheduleBlink(); scheduleBreathe();
+  };
+  const setLevel = value => {
+    const v = Math.max(0, Math.min(1, Number(value) || 0)), sy = 1 + .1 * v, sx = 1 / sy;
+    root.style.setProperty('--volume-x', sx.toFixed(4)); root.style.setProperty('--volume-y', sy.toFixed(4));
+  };
+  const step = () => {
+    clearTimeout(stepTimer); root.classList.remove('familiar-step'); void root.offsetWidth; root.classList.add('familiar-step');
+    stepTimer = setTimeout(() => root.classList.remove('familiar-step'), 850);
+  };
+  const lookAtClient = (x, y) => {
+    const r = root.getBoundingClientRect(); lookAt((x - r.left - r.width / 2) / Math.max(1, r.width) * 14, (y - r.top - r.height / 2) / Math.max(1, r.height) * 14, true);
+  };
+  const setVisible = on => { visible = !!on; root.classList.toggle('familiar-hidden', !visible); scheduleBlink(); scheduleBreathe(); };
+  let api = null;
+  const destroy = () => {
+    clearBlink(); clearBreathe(); clearTimeout(stepTimer); reducedQuery.removeEventListener?.('change', changed);
+    if (root._familiar === api) root._familiar = null;
+    root.replaceChildren();
+  };
+  const changed = () => { scheduleBlink(); scheduleBreathe(); };
+  reducedQuery.addEventListener?.('change', changed);
+  setState(options.state || 'idle');
+  api = { root, setState, setLevel, lookAt, lookAtClient, setVisible, step, destroy, get state() { return state; } };
+  root._familiar = api;
+  return api;
+}
+
+export { MML, markdown, shut, createFamiliar, FAMILIAR_COLORS, FAMILIAR_STATES };
