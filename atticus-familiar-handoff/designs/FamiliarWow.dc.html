@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Familiar Hero-Sequenz</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#D4FF3A}a:hover{color:#E6FF85}
+.disp{font-family:'Bricolage Grotesque',Geist,sans-serif;font-weight:650;letter-spacing:-.01em}
+.mono{font-family:'Geist Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.ab{position:absolute}
+.cbtn{height:34px;border:0;border-radius:999px;padding:0 14px;font:500 13px Geist,system-ui,sans-serif;cursor:pointer;background:rgba(244,241,232,.10);color:#F2F1EA}
+.chip{height:32px;border:0;border-radius:999px;padding:0 13px;font:500 13px Geist,system-ui,sans-serif;cursor:pointer}
+:is(.cbtn,.chip,.hold,.deny):focus-visible{outline:2px solid #D4FF3A;outline-offset:2px}
+.row{position:absolute;left:40px;width:680px;box-sizing:border-box;border-radius:8px;display:flex;align-items:center;padding:0 16px;font-size:14px;color:#1F2328}
+.hold{position:absolute;left:908px;top:368px;width:320px;height:48px;border:0;border-radius:14px;overflow:hidden;padding:0;cursor:pointer;background:#E2DECF;touch-action:none;user-select:none;-webkit-user-select:none}
+.deny{position:absolute;left:908px;top:424px;width:320px;height:32px;border:0;border-radius:10px;background:transparent;color:#3A3930;font:500 13.5px Geist,sans-serif;cursor:pointer}
+</style>
+</helmet>
+<div onPointerMove="{{onMove}}" style="position:relative;width:1280px;height:800px;overflow:hidden;background:radial-gradient(120% 90% at 70% 10%,#3A3C33 0%,#2A2B26 45%,#1E1F1B 100%);font-family:Geist,system-ui,sans-serif;color:#F2F1EA">
+
+<!-- menubar -->
+<div class="ab" style="left:0;top:0;width:1280px;height:24px;background:rgba(27,28,23,.85);display:flex;align-items:center;gap:18px;padding:0 16px;box-sizing:border-box;font-size:12.5px;color:#D8D7CE">
+<b style="font-weight:600"></b><b style="font-weight:600">Chrome</b><span>Ablage</span><span>Bearbeiten</span><span>Darstellung</span><span style="flex:1"></span><span class="mono" style="font-size:11.5px;margin-right:120px">Mo 26. Okt 09:41</span>
+</div>
+
+<!-- chrome window -->
+<div class="ab" style="left:64px;top:88px;width:760px;height:600px;border-radius:10px;overflow:hidden;background:#FFFFFF;box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 .5px rgba(0,0,0,.4)">
+<div style="height:36px;background:#DEE1E6;display:flex;align-items:flex-end;padding:0 12px;gap:8px">
+<div style="display:flex;gap:6px;align-self:center;margin-right:10px"><i style="width:11px;height:11px;border-radius:50%;background:#FF5F57"></i><i style="width:11px;height:11px;border-radius:50%;background:#FEBC2E"></i><i style="width:11px;height:11px;border-radius:50%;background:#28C840"></i></div>
+<div style="height:28px;width:200px;border-radius:8px 8px 0 0;background:#FFFFFF;display:flex;align-items:center;padding:0 12px;font-size:12px;color:#3C4043"><span style="width:12px;height:12px;border-radius:3px;background:#EC0016;margin-right:8px"></span>bahn.de · Buchung</div>
+</div>
+<div style="height:36px;display:flex;align-items:center;padding:0 12px;border-bottom:1px solid #E8EAED"><div style="flex:1;height:26px;border-radius:13px;background:#F1F3F4;display:flex;align-items:center;padding:0 14px;font-size:12.5px;color:#5F6368">bahn.de/buchung/fahrplan</div></div>
+<div style="position:relative;height:528px">
+<sc-if value="{{pageA}}" hint-placeholder-val="{{ true }}">
+<div class="ab" style="left:40px;top:28px;font:650 22px 'Bricolage Grotesque',sans-serif;color:#1F2328">Berlin Hbf → München Hbf</div>
+<div class="ab" style="left:40px;top:62px;font-size:13px;color:#5F6368">Hinfahrt · 2 Erwachsene · 2. Klasse</div>
+<div class="ab" style="left:40px;top:112px;font-size:12px;color:#5F6368">Datum</div>
+<div class="ab" style="{{dateStyle}}">Fr, 31. Okt 2026</div>
+<div class="row" style="{{row1}}"><b style="width:64px">08:30</b><span style="flex:1">ICE 1001 · 4:02 h · 0 Umstiege</span><b>89,90 €</b></div>
+<div class="row" style="{{row2}}"><b style="width:64px">09:04</b><span style="flex:1">ICE 597 · 3:58 h · 0 Umstiege</span><b>124,00 €</b></div>
+<div class="row" style="{{row3}}"><b style="width:64px">09:30</b><span style="flex:1">ICE 1005 · 4:14 h · 1 Umstieg</span><b>99,90 €</b></div>
+<sc-if value="{{showBanner}}" hint-placeholder-val="{{ false }}">
+<div class="ab" style="left:40px;top:364px;width:680px;height:44px;box-sizing:border-box;border-radius:8px;border:1px solid #EC0016;background:#FDECEE;display:flex;align-items:center;padding:0 16px;font-size:14px;color:#A3000F"><b style="margin-right:6px">Ausgebucht.</b>Für ICE 597 sind keine Sitzplätze mehr frei.</div>
+</sc-if>
+<div class="ab" style="left:560px;top:432px;width:160px;height:40px;border-radius:8px;background:#EC0016;color:#fff;display:grid;place-items:center;font-weight:600;font-size:14px">Weiter</div>
+</sc-if>
+<sc-if value="{{pageB}}" hint-placeholder-val="{{ false }}">
+<div class="ab" style="left:40px;top:28px;font:650 22px 'Bricolage Grotesque',sans-serif;color:#1F2328">Prüfen &amp; Buchen</div>
+<div class="row" style="{{rowTotal}}"><span style="flex:1;color:#5F6368">Gesamtpreis</span><b style="font-size:18px">248,00 €</b></div>
+<div class="row" style="{{rowPay}}"><span style="flex:1;color:#5F6368">Zahlungsmittel</span><b>Visa ••4417</b></div>
+<div class="row" style="top:226px;height:60px;background:#F6F7F9"><span style="flex:1;line-height:20px"><b>ICE 597</b> · Fr 31. Okt · 09:04 Berlin Hbf → 13:02 München Hbf<br><span style="color:#5F6368">2 Erwachsene · Sitzplätze 42, 43</span></span></div>
+<div class="ab" style="{{payBtn}}">Jetzt kaufen</div>
+</sc-if>
+<div class="ab" style="{{cursorStyle}}"><div style="width:18px;height:18px;margin:-11px 0 0 -11px;border-radius:50%;border:2px solid #0E0F0C;background:rgba(212,255,58,.85);box-shadow:0 3px 8px rgba(0,0,0,.35)"></div></div>
+<div class="ab" style="{{rippleStyle}}"></div>
+</div>
+</div>
+
+<!-- goo layer: panel shape + blob + tether, merged as liquid -->
+<svg class="ab" width="1280" height="800" viewBox="0 0 1280 800" style="left:0;top:0;pointer-events:none" aria-hidden="true">
+<defs>
+<filter id="goo" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+<feGaussianBlur in="SourceGraphic" stdDeviation="8" result="b"></feGaussianBlur>
+<feColorMatrix in="b" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -10"></feColorMatrix>
+</filter>
+<filter id="jelly" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+<feGaussianBlur in="SourceAlpha" stdDeviation="4" result="b"></feGaussianBlur>
+<feSpecularLighting in="b" surfaceScale="6" specularConstant="1.1" specularExponent="28" lighting-color="#FFFFFF" result="s"><fePointLight x="-34" y="-70" z="110"></fePointLight></feSpecularLighting>
+<feComposite in="s" in2="SourceAlpha" operator="in" result="s2"></feComposite>
+<feComposite in="SourceGraphic" in2="s2" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"></feComposite>
+</filter>
+<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"></feGaussianBlur></filter>
+<filter id="shadow" x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="3"></feGaussianBlur></filter>
+<radialGradient id="vb" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="{{G.a}}"></stop><stop offset=".55" stop-color="{{G.m}}"></stop><stop offset="1" stop-color="{{G.d}}"></stop></radialGradient>
+<radialGradient id="vg"><stop offset="0" stop-color="{{G.m}}" stop-opacity=".22"></stop><stop offset="1" stop-color="{{G.m}}" stop-opacity="0"></stop></radialGradient>
+<clipPath id="bodyclip"><circle cx="0" cy="0" r="26"></circle></clipPath>
+</defs>
+<g filter="url(#goo)">
+<rect x="{{P.x}}" y="{{P.y}}" width="{{P.w}}" height="{{P.h}}" rx="{{P.r}}" fill="{{P.fill}}" opacity="{{P.o}}"></rect>
+<circle cx="{{T0.x}}" cy="{{T0.y}}" r="{{T0.r}}" fill="{{G.m}}"></circle>
+<circle cx="{{T1.x}}" cy="{{T1.y}}" r="{{T1.r}}" fill="{{G.m}}"></circle>
+<circle cx="{{T2.x}}" cy="{{T2.y}}" r="{{T2.r}}" fill="{{G.m}}"></circle>
+<circle cx="{{T3.x}}" cy="{{T3.y}}" r="{{T3.r}}" fill="{{G.m}}"></circle>
+<circle cx="{{T4.x}}" cy="{{T4.y}}" r="{{T4.r}}" fill="{{G.m}}"></circle>
+<circle cx="{{T5.x}}" cy="{{T5.y}}" r="{{T5.r}}" fill="{{G.m}}"></circle>
+<circle cx="{{B.x}}" cy="{{B.y}}" r="{{B.gr}}" fill="{{G.m}}" opacity="{{B.o}}"></circle>
+</g>
+</svg>
+
+<!-- panel content of the main flow -->
+<div class="ab" style="{{baseWrap}}">
+<sc-if value="{{showListen}}" hint-placeholder-val="{{ false }}">
+<div class="ab" style="{{listenStyle}}">{{spoken}}<span style="{{caretStyle}}"></span></div>
+</sc-if>
+<sc-if value="{{showSlow}}" hint-placeholder-val="{{ false }}">
+<div class="ab" style="{{slowStyle}}">
+<div class="disp" style="font-size:16px;line-height:20px">Dauert länger als sonst …</div>
+<div style="display:flex;align-items:center;gap:8px;margin-top:6px"><span style="font-size:12.5px;color:#8B8C80">Claude antwortet langsam</span><button class="cbtn" onClick="{{cancelNow}}" style="height:24px;padding:0 10px;font-size:12px">Abbrechen</button></div>
+</div>
+</sc-if>
+<sc-if value="{{showOpening}}" hint-placeholder-val="{{ false }}">
+<div class="ab disp" style="left:908px;top:58px;font-size:17px;color:#F2F1EA">Öffne bahn.de …</div>
+</sc-if>
+<sc-if value="{{showPill}}" hint-placeholder-val="{{ false }}">
+<div class="ab" style="{{pillStyle}}"><span class="disp" style="font-size:15px">Buche ICE 597</span><span class="mono" style="font-size:12px;color:#8B8C80;margin-left:8px">Schritt {{stepN}}/4</span></div>
+<button class="cbtn" onClick="{{cancelNow}}" aria-label="Stopp, nichts buchen" style="{{stopStyle}}"><svg width="9" height="9" viewBox="0 0 10 10" aria-hidden="true"><rect width="10" height="10" rx="2" fill="#FF4D2E"></rect></svg>Stopp</button>
+<div class="ab" style="left:908px;top:86px;width:300px;height:2px;border-radius:1px;background:rgba(242,241,234,.12)"><div style="{{progStyle}}"></div></div>
+</sc-if>
+<sc-if value="{{showCard}}" hint-placeholder-val="{{ false }}">
+<div class="ab" style="{{cardWrap}}">
+<div class="ab mono" style="left:908px;top:156px;font-size:11px;letter-spacing:.08em;color:#5A584C">ZAHLUNG FREIGEBEN</div>
+<div class="ab mono" style="{{expStyle}}">{{expLabel}}</div>
+<div class="ab" style="{{gA}}"><span class="disp" style="font-size:32px;color:#0E0F0C">248,00 €</span></div>
+<div class="ab" style="{{gB}}"><span style="font-size:13px;color:#5A584C;width:64px">Karte</span><b style="font-size:14px;color:#0E0F0C">Visa ••4417</b></div>
+<div class="ab" style="{{gC}}"><span style="font-size:13px;line-height:18px;color:#0E0F0C"><b>ICE 597</b> · Fr 31. Okt · 09:04<br>Berlin Hbf → München Hbf · 2 Pers.</span></div>
+<button class="hold" disabled="{{holdDisabled}}" onPointerDown="{{holdStart}}" onPointerUp="{{holdEnd}}" onPointerLeave="{{holdEnd}}" aria-label="Gedrückt halten, um 248,00 Euro zu bezahlen" style="{{holdStyle}}">
+<span class="ab" style="{{fillStyle}}"></span>
+<span class="ab" style="{{holdLabelStyle}}">{{holdLabel}}</span>
+</button>
+<button class="deny" onClick="{{denyNow}}">Nicht kaufen <span class="mono" style="font-size:11px;opacity:.6;margin-left:4px">esc</span></button>
+<sc-if value="{{showStamp}}" hint-placeholder-val="{{ false }}">
+<div class="ab disp" style="{{stampStyle}}">Bezahlt ✓</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{showDone}}" hint-placeholder-val="{{ false }}">
+<div class="ab" style="{{doneStyle}}">
+<div class="disp" style="font-size:18px;line-height:22px">Gebucht</div>
+<div style="font-size:13px;line-height:18px;color:#B9B8AC;margin-top:2px">ICE 597 · Fr 09:04 · Platz 42, 43 · 248,00 €</div>
+<div style="display:flex;gap:6px;margin-top:10px"><button class="cbtn" style="height:28px;padding:0 12px;font-size:12.5px;background:#D4FF3A;color:#0E0F0C;font-weight:600">Öffnen</button><button class="cbtn" style="height:28px;padding:0 12px;font-size:12.5px">Kopieren</button></div>
+</div>
+</sc-if>
+</div>
+
+<!-- panel content of a branch: stopped, error, denied, expired, mic -->
+<sc-if value="{{showBranch}}" hint-placeholder-val="{{ false }}">
+<div class="ab" style="{{branchStyle}}">
+<div class="disp" style="font-size:18px;line-height:22px">{{bx.title}}</div>
+<div style="font-size:13px;line-height:18px;color:#B9B8AC;margin-top:2px">{{bx.sub}}</div>
+<div style="display:flex;gap:6px;margin-top:10px"><button class="cbtn" style="height:28px;padding:0 12px;font-size:12.5px;background:#D4FF3A;color:#0E0F0C;font-weight:600">{{bx.b1}}</button><button class="cbtn" style="height:28px;padding:0 12px;font-size:12.5px">{{bx.b2}}</button></div>
+</div>
+</sc-if>
+
+<!-- the creature, crisp and lit -->
+<svg class="ab" width="1280" height="800" viewBox="0 0 1280 800" style="left:0;top:0;pointer-events:none" aria-hidden="true">
+<circle cx="1132" cy="12" r="{{iconR}}" fill="#D4FF3A"></circle>
+<circle cx="1212" cy="64" r="{{scar.r}}" fill="#D4FF3A" opacity="{{scar.o}}"></circle>
+<g opacity="{{B.o}}">
+<circle cx="{{B.x}}" cy="{{B.y}}" r="70" fill="url(#vg)"></circle>
+<ellipse cx="{{B.x}}" cy="{{B.sy0}}" rx="{{B.shw}}" ry="4" fill="#0E0F0C" opacity="{{B.go}}" filter="url(#shadow)"></ellipse>
+<g transform="{{B.tf}}">
+<g transform="translate(0 -26)">
+<circle cx="0" cy="0" r="26" fill="url(#vb)" filter="url(#jelly)"></circle>
+<g clip-path="url(#bodyclip)"><circle cx="7" cy="9" r="15" fill="#F2FF9E" opacity="{{G.sss}}" filter="url(#soft)"></circle></g>
+<path d="M-21 13 A26 26 0 0 0 21 13" fill="none" stroke="#F7FFC8" stroke-width="1.5" stroke-linecap="round" opacity=".7"></path>
+<g transform="{{E.tf}}" opacity="{{E.oo}}">
+<circle cx="0" cy="0" r="8" fill="#0E0F0C"></circle>
+<circle cx="2.8" cy="-2.8" r="2.6" fill="#FFFFFF"></circle>
+</g>
+<path d="M-8 2 Q0 -7 8 2" fill="none" stroke="#0E0F0C" stroke-width="3.8" stroke-linecap="round" opacity="{{E.ho}}"></path>
+<path d="M-8 -1 Q0 5 8 -1" fill="none" stroke="#0E0F0C" stroke-width="3.4" stroke-linecap="round" opacity="{{E.co}}"></path>
+</g>
+</g>
+</g>
+</svg>
+
+<!-- scenario picker -->
+<div class="ab" style="left:856px;top:528px;width:400px">
+<div class="mono" style="font-size:11px;letter-spacing:.08em;color:#8B8C80;margin-bottom:10px">SZENARIO</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px">
+<sc-for list="{{scenarios}}" as="sc" hint-placeholder-count="7"><button class="chip" onClick="{{sc.pick}}" style="{{sc.style}}">{{sc.label}}</button></sc-for>
+</div>
+<div style="font-size:12.5px;line-height:18px;color:#8B8C80;margin-top:12px">Stopp in der Pille und „Nicht kaufen“ auf der Karte kannst du auch selbst klicken.</div>
+</div>
+
+<!-- controls -->
+<div class="ab" style="left:24px;top:716px;width:800px;display:flex;align-items:center;gap:8px">
+<button class="cbtn" onClick="{{replay}}">↺ Von vorn</button>
+<button class="cbtn" onClick="{{togglePlay}}" style="min-width:92px">{{playLabel}}</button>
+<label style="display:flex;align-items:center;gap:6px;font-size:13px;color:#D8D7CE;margin-left:6px;cursor:pointer"><input type="checkbox" checked="{{interactive}}" onChange="{{toggleInteractive}}" style="accent-color:#D4FF3A">Freigabe selbst halten</label>
+<label for="scrub" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">Zeitleiste</label>
+<input id="scrub" type="range" min="0" max="{{endT}}" step="10" value="{{t}}" onInput="{{scrub}}" style="flex:1;accent-color:#D4FF3A;margin-left:10px">
+<span class="mono" style="width:52px;text-align:right;font-size:12px;color:#8B8C80">{{tLabel}}</span>
+</div>
+<div class="ab mono" style="left:24px;top:760px;font-size:11.5px;color:#8B8C80;letter-spacing:.04em">{{phase}}</div>
+<sc-if value="{{waitHint}}" hint-placeholder-val="{{ false }}">
+<div class="ab" style="left:908px;top:480px;width:320px;text-align:center;font-size:13px;color:#D4FF3A">Halte den Button 0,8 s gedrückt · loslassen bricht ab</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { t: 0, playing: false, interactive: false, confirmed: false, holding: false, blink: false, scenario: 'ok', branch: null };
+this.mouse = { x: -999, y: -999 };
+this.pe = { x: 0, y: 1.5 };
+this.loop = this.loop.bind(this);
+this.TEXT = 'Buch den 9-Uhr-ICE nach München am Freitag, mit der üblichen Karte.';
+this.DUR = { cancel: 3800, error: 4700, deny: 3600, expire: 3600, mic: 4800 };
+this.PRESET = { cancel: { kind: 'cancel', at: 3800 }, error: { kind: 'error', at: 4100 }, deny: { kind: 'deny', at: 6700 }, expire: { kind: 'expire', at: 8400 }, mic: { kind: 'mic', at: 400 } };
+this.SCEN = [['ok', 'Alles klappt'], ['slow', 'Langsam'], ['cancel', 'Abgebrochen'], ['error', 'Kein Platz'], ['deny', 'Abgelehnt'], ['expire', 'Abgelaufen'], ['mic', 'Mikro fehlt']];
+}
+componentDidMount() {
+this.last = performance.now();
+this.nextBlink = this.last + 3000;
+this.raf = requestAnimationFrame(this.loop);
+this.startT = setTimeout(() => this.setState({ playing: true }), 700);
+}
+componentWillUnmount() { cancelAnimationFrame(this.raf); clearTimeout(this.startT); }
+offOf(s) { return s.scenario === 'slow' ? 3600 : 0; }
+eff(raw, off) { return raw < 2400 ? raw : raw < 2400 + off ? 2399.9 : raw - off; }
+dOf(s) { return s.branch ? s.branch.at + this.DUR[s.branch.kind] : 10900 + this.offOf(s); }
+endOf(s) { return this.dOf(s) + 500; }
+loop(now) {
+var dt = Math.min(50, now - this.last);
+this.last = now;
+var s = this.state;
+var patch = {};
+if (now > this.nextBlink) { this.blinkEnd = now + 140; this.nextBlink = now + 3000 + Math.random() * 3000; }
+var bl = now < (this.blinkEnd || 0);
+if (bl !== s.blink) patch.blink = bl;
+if (s.playing) {
+var t = s.t, off = this.offOf(s), r65 = 6500 + off, r73 = 7300 + off;
+if (s.interactive && !s.branch && !s.confirmed && t >= r65 && t < r73) {
+if (s.holding) {
+t = Math.min(r73, r65 + (now - this.holdT0));
+if (t >= r73) { patch.confirmed = true; patch.holding = false; }
+} else {
+t = Math.max(r65, t - dt * 4);
+}
+} else {
+t = t + dt;
+}
+var end = this.endOf(s);
+if (t >= end) { t = end; patch.playing = false; }
+patch.t = t;
+}
+if (Object.keys(patch).length) this.setState(patch);
+this.raf = requestAnimationFrame(this.loop);
+}
+renderVals() {
+var self = this, s = this.state, raw = s.t, br = s.branch, kind = br ? br.kind : null;
+var off = this.offOf(s), D = this.dOf(s), END = this.endOf(s);
+var te = this.eff(raw, off);
+var t = br ? this.eff(Math.min(raw, br.at), off) : te;
+if (kind === 'expire' && t >= 6500) t = 6499;
+var u = br && raw >= br.at ? raw - br.at : -1;
+var dr = raw - D;
+function cl(v, a, b) { return Math.max(a, Math.min(b, v)); }
+function seg(a, b) { return cl((t - a) / (b - a), 0, 1); }
+function sg(x, a, b) { return cl((x - a) / (b - a), 0, 1); }
+function lerp(a, b, p) { return a + (b - a) * p; }
+function eio(p) { return p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; }
+function eo(p) { return 1 - Math.pow(1 - p, 3); }
+function back(p) { var c = 1.1; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); }
+function bez(p, a, c, b) { var q = 1 - p; return [q * q * a[0] + 2 * q * p * c[0] + p * p * b[0], q * q * a[1] + 2 * q * p * c[1] + p * p * b[1]]; }
+function impAt(x, t0, amp, dec, f) { if (x < t0) return 0; var d = x - t0; return amp * Math.exp(-d / (dec || 150)) * Math.cos(d / (f || 40)); }
+function imp(t0, amp, dec, f) { return impAt(t, t0, amp, dec, f); }
+function mix(h1, h2, p) {
+var a = [1, 3, 5].map((i) => parseInt(h1.substr(i, 2), 16)), b = [1, 3, 5].map((i) => parseInt(h2.substr(i, 2), 16));
+return 'rgb(' + a.map((v, i) => Math.round(lerp(v, b[i], p))).join(',') + ')';
+}
+function f1(v) { return Number(v).toFixed(1); }
+var HOME = [1212, 72], ICON = [1132, 12], PERCH = [690, 66], CARD = [1190, 118];
+
+/* ghost cursor in Chrome */
+var C = null, clickT = [3400, 4000, 4600, 7300];
+var cpath = [[2900, 3400, [520, 240], [224, 308]], [3500, 4000, [224, 308], [444, 434]], [4100, 4600, [444, 434], [704, 612]], [4800, 5200, [704, 612], [684, 594]]];
+if (t >= 2900 && t < 7600) {
+C = [520, 240];
+cpath.forEach((m) => { if (t >= m[0]) { var p = eio(seg(m[0], m[1])); C = [lerp(m[2][0], m[3][0], p), lerp(m[2][1], m[3][1], p)]; } });
+}
+var cursorO = C ? 1 - sg(u, 0, 300) : 0;
+
+/* blob position along the main flow */
+var b = HOME, rad = 26, on = true, ground = true, stretch = 1;
+if (t < 40) { on = false; }
+else if (t < 160) { var p = eio(seg(40, 160)); b = bez(p, ICON, [1180, 20], HOME); rad = lerp(6, 26, p); ground = false; }
+else if (t < 2400) { b = HOME; }
+else if (t < 2820) { var p = eio(seg(2400, 2820)); b = bez(p, HOME, [960, -10], PERCH); stretch = 1 + .22 * Math.sin(Math.PI * p); ground = false; }
+else if (t < 5300) { b = PERCH; if (C) b = [PERCH[0] + cl((C[0] - PERCH[0]) / 220, -1, 1) * 4, PERCH[1]]; }
+else if (t < 5700) { var p = eio(seg(5300, 5700)); b = bez(p, PERCH, [940, -20], CARD); stretch = 1 + .2 * Math.sin(Math.PI * p); ground = false; }
+else if (t < 7500) { b = CARD; }
+else if (t < 7780) { var p = eio(seg(7500, 7780)); b = bez(p, CARD, [1205, 40], HOME); ground = false; }
+
+var hold = kind === 'expire' || kind === 'deny' ? 0 : cl((t - 6500) / 800, 0, 1);
+if (t >= 7300) hold = t < 7500 ? 1 : 0;
+var sy = 1 + imp(160, -.18) + imp(2000, .08, 120) + imp(2820, -.15) + imp(5700, -.15) + imp(7300, .25, 160) + imp(7780, -.12);
+clickT.forEach((c) => { sy += imp(c, -.06, 60, 25); });
+if (t > 220 && t < 2000 && kind !== 'mic') { var v = .5 + .5 * Math.sin(t / 170); sy += .045 * Math.sin(t / 85) * v; }
+if (t >= 6500 && t < 7300) sy -= .2 * hold;
+var stalled = off && raw >= 2400 && raw < 2400 + off && !br;
+if (stalled) { sy += .05 * Math.sin(raw / 180); stretch *= 1 + .03 * Math.cos(raw / 230); }
+if (kind === 'expire' && raw < br.at) sy += impAt(raw, 7600, -.08, 140) + impAt(raw, 7700, .06, 120);
+
+/* eye along the main flow */
+function look(x, y) { var dx = x - b[0], dy = y - (b[1] - 2), d = Math.hypot(dx, dy) || 1, m = Math.min(1, d / 60); return [dx / d * 7 * m, dy / d * 7 * m]; }
+var near = Math.hypot(this.mouse.x - b[0], this.mouse.y - b[1]) < 300;
+var atYou = near ? look(this.mouse.x, this.mouse.y) : [0, 1.5];
+var tg = [0, 1.5];
+if (t < 2000) tg = atYou;
+else if (t < 2400) tg = stalled ? [3 * Math.sin(raw / 600), -5] : [0, -5];
+else if (t < 2820) tg = look(500, 340);
+else if (t < 5200) tg = C ? look(C[0], C[1]) : [0, 4];
+else if (t < 5750) tg = look(1050, 220);
+else if (t < 5970) tg = look(980, 208);
+else if (t < 6190) tg = look(990, 256);
+else if (t < 6410) tg = look(1010, 308);
+else if (t < 7300) tg = kind === 'expire' && raw > 7000 ? atYou : look(1068, 392);
+else if (t >= 7900) tg = atYou;
+var saccade = t >= 5750 && t < 7300;
+var happy = !br && t >= 7300 && dr < 0;
+var eyeOpen = seg(200, 290), closed = kind === 'mic';
+var ps = 1 + .25 * (t >= 6500 && t < 7300 ? hold : 0);
+
+/* panel shape along the main flow (q = how much it is paper) */
+var P = { x: 1248, y: 36, w: 0, h: 72, r: 28, q: 0, o: 0 };
+if (t >= 180) {
+var w = 360, h = 72, y = 36, r = 28, q = 0;
+if (t < 400) w = lerp(56, 360, back(seg(180, 400)));
+if (t >= 2520) h = lerp(72, 56, eio(seg(2520, 2760)));
+if (t >= 5200) { var k1 = eio(seg(5200, 5440)); y = lerp(36, 140, k1); h = lerp(56, 330, k1); r = lerp(28, 20, k1); q = k1; }
+if (t >= 7500) { var k2 = eio(seg(7500, 7900)); y = lerp(140, 36, k2); h = lerp(330, 116, k2); r = lerp(20, 28, k2); q = 1 - k2; }
+P = { x: 1248 - w, y: y, w: w, h: h, r: r, q: q, o: 1 };
+}
+
+/* body colour */
+var tint = null, tintA = 0;
+if (kind === 'expire' && raw < br.at) { tint = 'amber'; tintA = sg(raw, br.at - 1800, br.at) * .85; }
+
+/* goo tether */
+var tether = [];
+function bridge(a, z, n, r0) { for (var i = 1; i <= n; i++) { var p = i / (n + 1); tether.push({ x: f1(lerp(a[0], z[0], p)), y: f1(lerp(a[1], z[1], p)), r: f1(r0 * (1 - .5 * Math.sin(Math.PI * p))) }); } }
+if (t >= 40 && t < 150) bridge(ICON, b, 5, 5);
+if (t >= 2400 && t < 2520) bridge(HOME, b, 6, 9 * (1 - seg(2400, 2520)) + 3);
+if (!br && t >= 7640 && t < 7800) bridge(HOME, b, 3, 8);
+var scarOn = t >= 2520 && t < 7700;
+
+/* text blocks of the main flow */
+var baseO = br ? 1 - sg(u, 0, 180) : 1;
+var cardO = t < 7500 ? seg(5380, 5440) : 1 - seg(7500, 7540);
+if (br) cardO *= 1 - sg(u, 0, 200);
+var lit = (t0) => t >= t0 && t < 7500 && u < 0;
+var gateOpen = t >= 6410 && !(kind === 'expire' && u >= 0);
+
+/* branch: the creature reacts, goes home, the panel becomes a short message */
+var bx = { title: '', sub: '', b1: '', b2: '' }, branchO = 0, phaseB = '';
+if (u >= 0) {
+var cfg = {
+cancel: { hs: 120, ps: 300, cs: 480, defl: 0, wob: 380, title: 'Gestoppt', sub: 'Nichts gebucht. Chrome bleibt bei der Zugauswahl stehen.', b1: 'Weitermachen', b2: 'Schließen', ph: 'Abbruch · Stopp gedrückt, springt erschrocken heim, nichts gebucht' },
+error: { hs: 700, ps: 700, cs: 920, defl: .1, wob: -1, title: 'Kein Platz im 09:04', sub: 'ICE 597 ist ausgebucht. Der 09:30 hat noch Plätze, 99,90 € pro Person.', b1: '09:30 nehmen', b2: 'Andere zeigen', ph: 'Fehler · sackt zusammen, schaut aufs Problem, bringt eine Alternative mit' },
+deny: { hs: 200, ps: 200, cs: 560, defl: 0, wob: 0, title: 'Nicht gekauft', sub: 'Nichts bezahlt. Die Verbindung bleibt in Chrome offen.', b1: 'Schließen', b2: 'Doch kaufen', ph: 'Abgelehnt · zuckt mit den Schultern, springt heim, nichts bezahlt' },
+expire: { hs: 300, ps: 300, cs: 640, defl: .08, wob: 0, title: 'Freigabe abgelaufen', sub: 'Nichts bezahlt. Sag „nochmal“, wenn du so weit bist.', b1: 'Nochmal fragen', b2: 'Schließen', ph: 'Abgelaufen · war ungeduldig amber, gibt auf, nichts bezahlt' },
+mic: { hs: -1, ps: 0, cs: 200, defl: .06, wob: -1, title: 'Ich kann dich nicht hören', sub: 'Mir fehlt der Zugriff aufs Mikrofon.', b1: 'Einstellungen öffnen', b2: 'Lieber tippen', ph: 'Mikro fehlt · Auge bleibt zu, sagt dir, was fehlt' }
+}[kind];
+phaseB = cfg.ph;
+bx = { title: cfg.title, sub: cfg.sub, b1: cfg.b1, b2: cfg.b2 };
+branchO = sg(u, cfg.cs, cfg.cs + 160);
+var b0 = b;
+if (cfg.hs >= 0) {
+if (u >= cfg.hs) {
+var hp = eio(sg(u, cfg.hs, cfg.hs + 280));
+b = bez(hp, b0, [(b0[0] + HOME[0]) / 2, Math.min(b0[1], HOME[1]) - 60], HOME);
+ground = hp >= 1;
+stretch = 1 + .18 * Math.sin(Math.PI * hp);
+if (u >= cfg.hs + 150 && u < cfg.hs + 290 && scarOn) bridge(HOME, b, 3, 7);
+if (u >= cfg.hs + 280) scarOn = false;
+}
+}
+if (cfg.wob >= 0 && u >= cfg.wob) b = [b[0] + 4 * Math.exp(-(u - cfg.wob) / 240) * Math.sin((u - cfg.wob) / 45), b[1]];
+sy = 1 + impAt(u, 0, kind === 'cancel' ? .14 : kind === 'error' ? -.1 : -.06, 130) + (cfg.hs >= 0 ? impAt(u, cfg.hs + 280, -.14) : 0);
+sy *= 1 - cfg.defl * sg(u, 0, 300);
+if (kind === 'error') { tint = 'dull'; tintA = sg(u, 0, 300) * (1 - .6 * sg(u, 2600, 3400)); }
+if (kind === 'expire') { tint = 'dull'; tintA = .6 * (1 - sg(u, 400, 1400)); }
+var pm = eio(sg(u, cfg.ps, cfg.ps + 300));
+P = { x: lerp(P.x, 888, pm), y: lerp(P.y, 36, pm), w: lerp(P.w, 360, pm), h: lerp(P.h, 116, pm), r: lerp(P.r, 28, pm), q: P.q * (1 - pm), o: P.o };
+if (kind === 'cancel') tg = u < 300 ? look(1150, 64) : atYou;
+if (kind === 'error') tg = u < 700 ? look(444, 546) : u < 2000 ? [0, 4] : atYou;
+if (kind === 'deny' || kind === 'expire') tg = u < 200 ? [5, 3] : atYou;
+saccade = false;
+}
+var sx = 1 / sy * stretch;
+var k = rad / 26;
+this.pe.x += (tg[0] - this.pe.x) * (saccade ? .55 : .25);
+this.pe.y += (tg[1] - this.pe.y) * (saccade ? .55 : .25);
+var psy = ps * eyeOpen * (s.blink && !happy ? .1 : 1);
+
+/* dismiss: panel retracts into the blob, blob is sucked into the menu bar */
+if (dr >= 0) {
+var wq = eio(sg(dr, 0, 180));
+P = { x: lerp(P.x, 1248 - 40, wq), y: 36, w: lerp(P.w, 40, wq), h: lerp(P.h, 56, wq), r: 28, q: 0, o: dr < 180 ? 1 : 0 };
+baseO = 0; branchO = Math.max(0, branchO - sg(dr, 0, 120));
+if (dr >= 180) {
+var dp = sg(dr, 180, 340); dp = dp * dp;
+b = [lerp(HOME[0], ICON[0], dp), lerp(HOME[1], ICON[1], dp)]; rad = lerp(26, 4, dp); k = rad / 26; ground = false;
+if (dr < 340) bridge(ICON, b, 4, 4);
+on = dr < 340;
+}
+scarOn = false;
+}
+var T = [0, 1, 2, 3, 4, 5].map((i) => tether[i] || { x: 0, y: 0, r: 0 });
+
+var TINTS = { amber: ['#FFD98A', '#FFB020', '#C77F00'], dull: ['#D9E39A', '#B9C95A', '#7F8C33'] };
+var tc = tint ? TINTS[tint] : null;
+var G = {
+a: tc ? mix('#EEFF9A', tc[0], tintA) : '#EEFF9A',
+m: tc ? mix('#D4FF3A', tc[1], tintA) : '#D4FF3A',
+d: tc ? mix('#9CBF14', tc[2], tintA) : '#9CBF14',
+sss: (.55 * (1 - (tint === 'dull' ? tintA : 0))).toFixed(2)
+};
+
+var pageB = t >= 4700;
+var outlineT = lit(5750), outlineP = lit(5970);
+var payPressed = !br && t >= 7300 && t < 7450;
+var nChars = Math.round(this.TEXT.length * seg(260, 1900));
+function gRow(top, h, t0) {
+return 'left:900px;top:' + top + 'px;width:336px;height:' + h + 'px;box-sizing:border-box;padding:0 8px;border-radius:10px;display:flex;align-items:center;gap:8px;transition:background .12s;background:' + (lit(t0) ? 'rgba(212,255,58,.35)' : 'transparent');
+}
+var stampP = br ? 0 : seg(7300, 7460);
+var stepN = t < 3400 ? 1 : t < 4000 ? 2 : t < 4600 ? 3 : 4;
+var expLeft = kind === 'expire' ? Math.max(0, Math.ceil((br.at - raw) / 1000)) : Math.max(0, 60 - Math.floor((t - 5440) / 1000));
+var expired = kind === 'expire' && u >= 0;
+var phase = dr >= 0 ? 'Weg · wird zurück in die Menüleiste gesaugt' : u >= 0 ? phaseB : stalled ? 'Langsam · knetet weiter und sagt nach 2 s ehrlich Bescheid' : t < 220 ? 'Rufen · Tropfen fällt aus der Menüleiste' : t < 2000 ? 'Zuhören · Körper atmet mit der Stimme, Auge folgt deiner Maus' : t < 2400 ? 'Schlucken · denkt nach' : t < 2820 ? 'Reise · springt zum Fenster, in dem es arbeitet' : t < 5200 ? 'Arbeitet · sitzt auf Chrome, schaut dem eigenen Cursor zu' : t < 6410 ? 'Freigabe · liest dir mit dem Blick Betrag, Karte, Fahrt vor' : kind === 'expire' ? 'Wartet · wird ungeduldig, Frist läuft' : t < 7300 ? 'Halten · drückt sich wie ein Stempel zusammen' : 'Fertig · springt heim, nimmt die Narbe wieder auf';
+var rippleC = null, lastClick = null;
+clickT.forEach((c) => { if (t >= c && t < c + 400 && u < 0) lastClick = c; });
+
+return {
+t: Math.round(raw), endT: Math.round(END), tLabel: (raw / 1000).toFixed(1) + ' s', phase: phase,
+playLabel: s.playing ? '❚❚ Pause' : '▶ Weiter',
+interactive: s.interactive,
+iconR: f1(4 * (1 + .6 * Math.sin(Math.PI * seg(0, 160)) + .6 * Math.sin(Math.PI * sg(dr, 340, 500)))),
+G: G,
+B: {
+x: f1(b[0]), y: f1(b[1]), gr: f1(rad * Math.max(sx, sy) * .96), o: on ? 1 : 0, go: ground && on ? .35 : 0,
+sy0: f1(b[1] + 26 * k + 1), shw: f1(20 * k * sx),
+tf: 'translate(' + f1(b[0]) + ' ' + f1(b[1] + 26 * k) + ') scale(' + (sx * k).toFixed(3) + ' ' + (sy * k).toFixed(3) + ')'
+},
+E: {
+oo: happy || closed ? 0 : 1, ho: happy ? 1 : 0, co: closed && t >= 200 ? 1 : 0,
+tf: 'translate(' + f1(this.pe.x) + ' ' + f1(this.pe.y - 2) + ') scale(' + ps.toFixed(3) + ' ' + psy.toFixed(3) + ')'
+},
+scar: { r: f1(5 + 1.2 * Math.sin(raw / 220)), o: scarOn ? (.75 + .25 * Math.sin(raw / 220)).toFixed(2) : 0 },
+P: { x: f1(P.x), y: f1(P.y), w: f1(P.w), h: f1(P.h), r: f1(P.r), fill: mix('#15160F', '#F3F0E6', P.q), o: P.o },
+T0: T[0], T1: T[1], T2: T[2], T3: T[3], T4: T[4], T5: T[5],
+baseWrap: 'left:0;top:0;opacity:' + baseO.toFixed(2),
+showListen: t >= 220 && t < 2400 && kind !== 'mic' && !(stalled && raw >= 4400),
+listenStyle: 'left:908px;top:50px;width:262px;font-size:15px;line-height:20px;opacity:' + (t < 2000 ? 1 : .6),
+spoken: this.TEXT.slice(0, nChars),
+caretStyle: 'display:' + (t < 2000 ? 'inline-block' : 'none') + ';width:2px;height:15px;margin-left:2px;vertical-align:-2px;background:#D4FF3A',
+showSlow: stalled && raw >= 4400,
+slowStyle: 'left:908px;top:46px;width:270px;opacity:' + sg(raw, 4400, 4560),
+cancelNow: () => { if (!self.state.branch) self.setState({ branch: { kind: 'cancel', at: self.state.t }, playing: true, holding: false }); },
+denyNow: () => { var st = self.state; if (!st.branch && !st.confirmed) self.setState({ branch: { kind: 'deny', at: st.t }, playing: true, holding: false }); },
+showOpening: t >= 2400 && t < 2620,
+showPill: t >= 2620 && t < 5200,
+pillStyle: 'left:908px;top:52px;opacity:' + seg(2620, 2720),
+stopStyle: 'position:absolute;left:1108px;top:48px;height:28px;padding:0 10px;font-size:12px;display:flex;align-items:center;gap:6px;opacity:' + seg(2620, 2720) + ';background:' + (kind === 'cancel' && u >= 0 && u < 160 ? 'rgba(255,77,46,.35)' : 'rgba(244,241,232,.10)'),
+stepN: stepN,
+progStyle: 'height:2px;border-radius:1px;background:#D4FF3A;box-shadow:0 0 8px #D4FF3A;width:' + (stepN * 25) + '%;transition:width .4s',
+showCard: t >= 5380 && t < 7540,
+cardWrap: 'left:0;top:0;opacity:' + cardO.toFixed(2),
+expStyle: 'left:1060px;top:156px;width:96px;text-align:right;font-size:11px;letter-spacing:.04em;color:' + (kind === 'expire' && expLeft <= 1 ? '#B3200A' : '#5A584C'),
+expLabel: expired ? 'abgelaufen' : 'noch 0:' + String(expLeft).padStart(2, '0'),
+gA: gRow(184, 48, 5750), gB: gRow(238, 36, 5970), gC: gRow(280, 56, 6190),
+holdDisabled: !gateOpen,
+holdStyle: 'opacity:' + (gateOpen ? 1 : .4) + ';box-shadow:' + (gateOpen && hold === 0 ? '0 0 0 2px #0E0F0C' : 'none') + ';transition:opacity .2s',
+fillStyle: 'left:0;top:0;bottom:0;width:' + (hold * 100).toFixed(1) + '%;background:#0E0F0C',
+holdLabelStyle: 'left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font:600 14px Geist,sans-serif;color:' + (hold > .5 ? '#F3F0E6' : '#0E0F0C'),
+holdLabel: expired ? 'Abgelaufen' : gateOpen ? 'Halten zum Bezahlen · 248,00 €' : 'Gleich verfügbar …',
+showStamp: !br && t >= 7300,
+stampStyle: 'left:1060px;top:180px;padding:4px 12px;border:3px solid #0E0F0C;border-radius:10px;background:#D4FF3A;color:#0E0F0C;font-size:24px;transform:rotate(-6deg) scale(' + lerp(1.3, 1, eo(stampP)).toFixed(3) + ');opacity:' + stampP.toFixed(2),
+showDone: !br && t >= 7860 && dr < 0,
+doneStyle: 'left:908px;top:50px;width:270px;opacity:' + seg(7860, 7960),
+showBranch: branchO > 0,
+branchStyle: 'left:908px;top:50px;width:270px;opacity:' + branchO.toFixed(2),
+bx: bx,
+waitHint: s.interactive && !br && !s.confirmed && t >= 6410 && t < 7300 && s.playing,
+pageA: !pageB, pageB: pageB,
+showBanner: kind === 'error' && u >= 0,
+dateStyle: 'left:40px;top:130px;width:240px;height:36px;box-sizing:border-box;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-size:14px;color:#1F2328;border:' + (t >= 3400 ? '2px solid #1F2328' : '1px solid #C9CDD2'),
+row1: 'height:44px;top:200px;background:#F6F7F9',
+row2: 'height:44px;top:252px;background:' + (t >= 4000 ? '#FFF1F2' : '#F6F7F9') + ';box-shadow:' + (t >= 4000 ? 'inset 0 0 0 2px #EC0016' : 'none') + ';opacity:' + (kind === 'error' && u >= 0 ? .5 : 1),
+row3: 'height:44px;top:304px;background:#F6F7F9;box-shadow:' + (kind === 'error' && u >= 1200 && u < 3600 ? '0 0 0 2px #D4FF3A,0 0 18px rgba(212,255,58,.6)' : 'none'),
+rowTotal: 'top:90px;height:56px;background:#F6F7F9;box-shadow:' + (outlineT ? '0 0 0 2px #D4FF3A,0 0 18px rgba(212,255,58,.6)' : 'none'),
+rowPay: 'top:158px;height:52px;background:#F6F7F9;box-shadow:' + (outlineP ? '0 0 0 2px #D4FF3A,0 0 18px rgba(212,255,58,.6)' : 'none'),
+payBtn: 'left:520px;top:412px;width:200px;height:44px;border-radius:8px;display:grid;place-items:center;color:#fff;font-weight:600;font-size:14px;background:' + (payPressed ? '#B0000F' : '#EC0016'),
+cursorStyle: 'left:' + f1(C ? C[0] - 64 : -50) + 'px;top:' + f1(C ? C[1] - 160 : -50) + 'px;opacity:' + cursorO.toFixed(2) + ';display:' + (C ? 'block' : 'none'),
+rippleStyle: (function () {
+if (!lastClick || !C) return 'display:none';
+var p = (t - lastClick) / 400;
+return 'left:' + f1(C[0] - 64 - 18) + 'px;top:' + f1(C[1] - 160 - 18) + 'px;width:36px;height:36px;border-radius:50%;border:2px solid #D4FF3A;opacity:' + (1 - p).toFixed(2) + ';transform:scale(' + (.5 + p * 1.3).toFixed(2) + ')';
+})(),
+scenarios: this.SCEN.map((x) => ({
+label: x[1],
+pick: () => { self.pe = { x: 0, y: 1.5 }; self.setState({ scenario: x[0], branch: self.PRESET[x[0]] || null, t: 0, playing: true, confirmed: false, holding: false }); },
+style: x[0] === s.scenario ? 'background:#D4FF3A;color:#0E0F0C;font-weight:600' : 'background:rgba(244,241,232,.10);color:#F2F1EA'
+})),
+onMove: (e) => { var r = e.currentTarget.getBoundingClientRect(), kk = r.width / 1280; self.mouse = { x: (e.clientX - r.left) / kk, y: (e.clientY - r.top) / kk }; },
+replay: () => { self.pe = { x: 0, y: 1.5 }; self.setState({ t: 0, playing: true, confirmed: false, holding: false, branch: self.PRESET[s.scenario] || null }); },
+togglePlay: () => { if (!s.playing && raw >= END) self.setState({ t: 0, playing: true, confirmed: false, branch: self.PRESET[s.scenario] || null }); else self.setState({ playing: !s.playing }); },
+toggleInteractive: () => self.setState({ interactive: !s.interactive }),
+scrub: (e) => { var v = +e.target.value; self.setState({ t: v, playing: false, confirmed: !s.branch && self.eff(v, off) >= 7300, holding: false }); },
+holdStart: () => { var st = self.state; if (!st.interactive || st.branch || st.confirmed || self.eff(st.t, off) < 6410) return; self.holdT0 = performance.now() - Math.max(0, st.t - (6500 + off)); self.setState({ holding: true, playing: true }); },
+holdEnd: () => { if (self.state.holding) self.setState({ holding: false }); }
+};
+}
+}
+</script>
+</body>
+</html>

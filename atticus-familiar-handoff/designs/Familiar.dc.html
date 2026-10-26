@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Familiar overlay states</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#D4FF3A}a:hover{color:#E6FF85}
+.tile{position:relative;border-radius:14px;overflow:hidden}
+.cap{font:500 12px 'Geist Mono',ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:#6B6A5E;margin:0 0 10px}
+.win{position:absolute;border-radius:10px;background:rgba(255,255,255,.55);box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.panel{position:absolute;left:16px;top:16px;width:420px;box-sizing:border-box;border-radius:28px;background:rgba(21,22,15,.94);-webkit-backdrop-filter:blur(28px) saturate(1.4);backdrop-filter:blur(28px) saturate(1.4);box-shadow:0 24px 60px rgba(0,0,0,.45),0 0 0 1px rgba(212,255,58,.10);color:#F4F1E8;font-family:Geist,system-ui,sans-serif;padding:16px 18px 18px}
+.row{display:flex;align-items:center;gap:14px}
+.disp{font-family:'Bricolage Grotesque',Geist,sans-serif;font-weight:650;letter-spacing:-.01em}
+.ib{display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:999px;background:rgba(244,241,232,.08);color:#F4F1E8;padding:0;cursor:pointer}
+.ib:focus-visible,.btn:focus-visible{outline:2px solid #D4FF3A;outline-offset:2px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:10px;background:rgba(244,241,232,.07);font-size:12.5px;color:#A9A797}
+.btn{height:40px;border-radius:999px;font:600 14px Geist,system-ui,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 18px}
+</style>
+</helmet>
+<div style="width:1600px;height:1400px;box-sizing:border-box;padding:56px 64px;background:#ECEAE2;font-family:Geist,system-ui,sans-serif;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 32px;align-content:start">
+
+<!-- LISTENING -->
+<div>
+<p class="cap">Listening · blob squashes with voice</p>
+<div class="tile" style="height:560px;background:{{wall}}">
+<div class="win" style="left:60px;top:150px;width:380px;height:300px"></div>
+<div class="panel">
+<div class="row">
+<svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="31" rx="25" ry="21" fill="#D4FF3A"></ellipse><circle cx="34" cy="26" r="6" fill="#0E0F0C"></circle><circle cx="36" cy="24" r="2" fill="#F4F1E8"></circle></svg>
+<div style="flex:1;min-width:0">
+<div class="disp" style="font-size:22px;line-height:26px">Listening</div>
+<div style="font-size:16px;line-height:22px;color:#F4F1E8;margin-top:4px">"Move Chrome to the left half<span style="display:inline-block;width:2px;height:16px;margin-left:2px;vertical-align:-3px;background:#D4FF3A"></span>"</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- WORKING -->
+<div>
+<p class="cap">Working · blob looks at the mini screen</p>
+<div class="tile" style="height:560px;background:{{wall}}">
+<div class="win" style="left:40px;top:60px;width:420px;height:420px"></div>
+<div class="panel">
+<div class="row">
+<svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true"><path d="M28 4c13 0 24 9 24 23 0 13-10 25-24 25S4 41 4 28C4 14 15 4 28 4z" fill="#D4FF3A"></path><circle cx="28" cy="38" r="6" fill="#0E0F0C"></circle><circle cx="29" cy="40" r="2" fill="#F4F1E8"></circle><circle cx="52" cy="10" r="3.5" fill="#D4FF3A"></circle></svg>
+<div style="flex:1;min-width:0">
+<div class="disp" style="font-size:22px;line-height:26px">On it · Amazon</div>
+<div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+<div style="display:flex;gap:3px"><i style="width:18px;height:5px;border-radius:3px;background:#D4FF3A"></i><i style="width:18px;height:5px;border-radius:3px;background:#D4FF3A"></i><i style="width:18px;height:5px;border-radius:3px;background:#D4FF3A"></i><i style="width:18px;height:5px;border-radius:3px;background:#D4FF3A"></i><i style="width:18px;height:5px;border-radius:3px;background:rgba(244,241,232,.15)"></i><i style="width:18px;height:5px;border-radius:3px;background:rgba(244,241,232,.15)"></i></div>
+<span style="font:400 11.5px 'Geist Mono',monospace;color:#A9A797">4 of ~6 · 0:14</span>
+</div>
+</div>
+<button class="ib" aria-label="Stop"><svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><rect width="10" height="10" rx="2" fill="#FF4D2E"></rect></svg></button>
+</div>
+<div style="font-size:13px;color:#A9A797;margin:12px 0 0 70px">Find a desk lamp under $30</div>
+<div style="padding:2px;margin-top:10px;border-radius:16px;background:#D4FF3A">
+<div style="position:relative;height:236px;border-radius:14px;overflow:hidden;background:#FAFAFA">
+<div style="height:22px;background:#ECECEE"></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:12px">
+<div style="height:82px;border-radius:4px;background:#E4E4E7"></div><div style="height:82px;border-radius:4px;background:#E4E4E7"></div><div style="height:82px;border-radius:4px;background:#E4E4E7"></div>
+<div style="height:82px;border-radius:4px;background:#E4E4E7"></div><div style="height:82px;border-radius:4px;background:#E4E4E7"></div><div style="height:82px;border-radius:4px;background:#E4E4E7"></div>
+</div>
+<div style="position:absolute;left:8px;top:30px;display:flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;background:#15160F;font:500 11.5px Geist,sans-serif;color:#F4F1E8"><span style="width:6px;height:6px;border-radius:50%;background:#D4FF3A"></span>Chrome · amazon.com</div>
+<div style="position:absolute;left:230px;top:150px;width:26px;height:26px;border-radius:50%;border:2px solid #15160F;background:rgba(212,255,58,.55)"></div>
+</div>
+</div>
+<div class="disp" style="font-size:15px;font-weight:500;margin-top:12px">Reading results…</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span class="chip"><span style="color:#D4FF3A">✓</span>Sorted by price</span><span class="chip"><span style="color:#D4FF3A">✓</span>Searched "desk lamp"</span><span class="chip">+2</span></div>
+</div>
+</div>
+</div>
+
+<!-- ANSWER -->
+<div>
+<p class="cap">Answer · status line is the headline</p>
+<div class="tile" style="height:560px;background:{{wall}}">
+<div class="win" style="left:80px;top:160px;width:360px;height:320px"></div>
+<div class="panel">
+<div class="row">
+<svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="29" rx="24" ry="23" fill="#D4FF3A"></ellipse><path d="M19 29l6 6 12-13" fill="none" stroke="#0E0F0C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<div class="disp" style="flex:1;font-size:22px;line-height:26px">Found 3 under $30</div>
+<button class="ib" aria-label="Ask again"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6M13 2.5V5h-2.5"></path></svg></button>
+<button class="ib" aria-label="Copy answer"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="2"></rect><path d="M3 10.5V4a1.5 1.5 0 0 1 1.5-1.5H11"></path></svg></button>
+</div>
+<div class="disp" style="font-size:18px;line-height:24px;margin-top:16px">Best pick: TaoTronics LED, $24.99, 4.6★ from 12k reviews.</div>
+<div style="font-size:15px;line-height:24px;color:#D9D6CC;margin-top:8px">The other two are dimmer (300 lm) and lack USB‑C. Opened all three in tabs.</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;font:400 11.5px 'Geist Mono',monospace;color:#A9A797"><span>4.8s</span><span style="color:#D4FF3A">Copied ✓</span></div>
+</div>
+</div>
+</div>
+
+<!-- APPROVAL -->
+<div>
+<p class="cap">Approval · paper card, hold to confirm</p>
+<div class="tile" style="height:560px;background:{{wall}}">
+<div class="win" style="left:40px;top:80px;width:420px;height:420px"></div>
+<div class="panel">
+<div class="row">
+<svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="24" ry="22" fill="#FFB020"></ellipse><circle cx="24" cy="40" r="6" fill="#0E0F0C"></circle><circle cx="25" cy="42" r="2" fill="#F4F1E8"></circle></svg>
+<div class="disp" style="flex:1;font-size:22px;line-height:26px">Hold on, check this</div>
+<span style="font:400 11.5px 'Geist Mono',monospace;color:#A9A797">0:58</span>
+</div>
+<div style="margin-top:14px;border-radius:20px;overflow:hidden;background:#F4F1E8;color:#1A1A14">
+<div style="padding:8px 16px;background:#FF4D2E;color:#1A0A05;font:700 11.5px 'Geist Mono',monospace;letter-spacing:.08em">THIS WILL DELETE · PERMANENT</div>
+<div style="padding:14px 16px 16px">
+<div class="disp" style="font-size:17px;line-height:22px">3 files from ~/Projects/tokyo</div>
+<div style="display:grid;grid-template-columns:1fr auto;row-gap:6px;margin-top:10px;font-size:13.5px">
+<span>itinerary-final.pdf</span><span style="font-family:'Geist Mono',monospace;font-size:12px;color:#5A584C">2.1 MB</span>
+<span>budget.xlsx</span><span style="font-family:'Geist Mono',monospace;font-size:12px;color:#5A584C">48 KB</span>
+<span>notes.md</span><span style="font-family:'Geist Mono',monospace;font-size:12px;color:#5A584C">6 KB</span>
+</div>
+<button style="margin-top:10px;border:0;background:none;padding:0;font:500 12.5px Geist,sans-serif;color:#5A584C;cursor:pointer">Exact command ▸</button>
+<div style="display:flex;gap:8px;margin-top:14px">
+<button class="btn" style="flex:1;border:0;background:#1A1A14;color:#F4F1E8">Keep them <span style="font:400 11px 'Geist Mono',monospace;opacity:.6">esc</span></button>
+<button class="btn" style="flex:1.2;border:1.5px solid #B3200A;background:transparent;color:#B3200A"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="rgba(179,32,10,.25)" stroke-width="2"></circle><path d="M8 1.5A6.5 6.5 0 0 1 14.5 8" fill="none" stroke="#B3200A" stroke-width="2" stroke-linecap="round"></path></svg>Hold to delete 3</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- DICTATION -->
+<div>
+<p class="cap">Dictation pill · volt</p>
+<div class="tile" style="height:560px;background:{{wall}};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px">
+<div style="display:flex;align-items:center;gap:10px;height:36px;padding:0 16px 0 6px;border-radius:999px;background:#D4FF3A;box-shadow:0 10px 26px rgba(0,0,0,.25)">
+<svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><ellipse cx="13" cy="14" rx="11" ry="9.5" fill="#0E0F0C"></ellipse></svg>
+<div style="display:flex;align-items:center;gap:3px;height:20px"><i style="width:3px;height:6px;background:#0E0F0C;border-radius:2px"></i><i style="width:3px;height:13px;background:#0E0F0C;border-radius:2px"></i><i style="width:3px;height:19px;background:#0E0F0C;border-radius:2px"></i><i style="width:3px;height:12px;background:#0E0F0C;border-radius:2px"></i><i style="width:3px;height:5px;background:#0E0F0C;border-radius:2px"></i><i style="width:3px;height:9px;background:#0E0F0C;border-radius:2px"></i><i style="width:3px;height:16px;background:#0E0F0C;border-radius:2px"></i></div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;height:36px;padding:0 6px;border-radius:999px;background:#D4FF3A;box-shadow:0 10px 26px rgba(0,0,0,.25)">
+<svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><ellipse cx="13" cy="14" rx="11" ry="9.5" fill="#0E0F0C"></ellipse></svg>
+<div style="display:flex;align-items:center;gap:3px;height:20px"><i style="width:3px;height:8px;background:#0E0F0C;border-radius:2px"></i><i style="width:3px;height:15px;background:#0E0F0C;border-radius:2px"></i><i style="width:3px;height:10px;background:#0E0F0C;border-radius:2px"></i></div>
+<span style="height:24px;padding:0 10px;border-radius:999px;display:flex;align-items:center;background:repeating-linear-gradient(135deg,#0E0F0C 0 4px,#2A2C1E 4px 8px);color:#D4FF3A;font:600 11px 'Geist Mono',monospace;letter-spacing:.08em">LOCKED</span>
+</div>
+<div style="display:grid;place-items:center;width:36px;height:36px;border-radius:999px;background:#D4FF3A;box-shadow:0 10px 26px rgba(0,0,0,.25)">
+<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 9.5l3.5 3.5L14 6" fill="none" stroke="#0E0F0C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</div>
+<div style="display:flex;align-items:center;gap:10px;height:36px;padding:0 6px 0 16px;border-radius:999px;background:#15160F;color:#F4F1E8;font-size:13px;box-shadow:0 10px 26px rgba(0,0,0,.25)">
+Nothing selected · saved to History
+<button style="height:26px;border:0;border-radius:999px;padding:0 12px;background:#D4FF3A;color:#0E0F0C;font:600 12px Geist,sans-serif;cursor:pointer">Copy</button>
+</div>
+</div>
+</div>
+
+<!-- BLOB STATES -->
+<div>
+<p class="cap">Orb → blob with a gaze</p>
+<div class="tile" style="height:560px;background:#15160F;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-content:center;gap:30px 0;padding:28px;box-sizing:border-box;color:#F4F1E8">
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px"><svg width="64" height="64" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="32" rx="26" ry="19" fill="#D4FF3A"></ellipse><circle cx="34" cy="28" r="6" fill="#0E0F0C"></circle><circle cx="36" cy="26" r="2" fill="#F4F1E8"></circle></svg><span class="disp" style="font-size:14px">Listening</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px"><svg width="64" height="64" viewBox="0 0 56 56" aria-hidden="true"><path d="M30 5c12 1 22 10 21 24-1 12-11 22-24 22C14 51 5 42 6 29 7 15 17 4 30 5z" fill="#D4FF3A"></path><circle cx="28" cy="18" r="6" fill="#0E0F0C"></circle><circle cx="30" cy="16" r="2" fill="#F4F1E8"></circle></svg><span class="disp" style="font-size:14px">Thinking</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px"><svg width="64" height="64" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="29" rx="23" ry="22" fill="#D4FF3A"></ellipse><circle cx="14" cy="27" r="6" fill="#0E0F0C"></circle><circle cx="15" cy="25" r="2" fill="#F4F1E8"></circle></svg><span class="disp" style="font-size:14px">Searching</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px"><svg width="64" height="64" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="24" ry="22" fill="#FFB020"></ellipse><circle cx="24" cy="40" r="6" fill="#0E0F0C"></circle><circle cx="25" cy="42" r="2" fill="#F4F1E8"></circle></svg><span class="disp" style="font-size:14px">Needs you</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px"><svg width="64" height="64" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="29" rx="24" ry="23" fill="#D4FF3A"></ellipse><path d="M19 29l6 6 12-13" fill="none" stroke="#0E0F0C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="disp" style="font-size:14px">Done</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px"><svg width="64" height="64" viewBox="0 0 56 56" aria-hidden="true"><path d="M28 12c13 0 24 8 24 22 0 9-10 14-24 14S4 43 4 34c0-14 11-22 24-22z" fill="#6B6A5E"></path><circle cx="28" cy="36" r="6" fill="#0E0F0C"></circle></svg><span class="disp" style="font-size:14px">Error</span></div>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"wallpaper":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":1600,"height":1400}}'>
+class Component extends DCLogic {
+renderVals() {
+const dark = (this.props.wallpaper ?? 'light') === 'dark';
+return { wall: dark ? 'linear-gradient(160deg,#2A2D35,#14161B)' : 'linear-gradient(160deg,#FFFFFF,#E7E9EE)' };
+}
+}
+</script>
+</body>
+</html>

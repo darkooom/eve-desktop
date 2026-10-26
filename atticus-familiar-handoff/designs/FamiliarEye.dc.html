@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Familiar eye system</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#D4FF3A}a:hover{color:#E6FF85}
+.h{font:650 26px/30px 'Bricolage Grotesque',sans-serif;letter-spacing:-.01em;margin:0}
+.k{font:500 11.5px 'Geist Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:#8C8A7C}
+.cell{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.lbl{font:650 15px 'Bricolage Grotesque',sans-serif}
+.sub{font-size:12.5px;line-height:17px;color:#A9A797;max-width:170px}
+.tr{display:grid;grid-template-columns:150px 1fr 120px 1fr;gap:16px;padding:11px 0;border-top:1px solid rgba(244,241,232,.08);font-size:13px;line-height:18px}
+.m{font-family:'Geist Mono',monospace;font-size:12px;color:#D4FF3A}
+</style>
+</helmet>
+<div style="width:1600px;height:1180px;box-sizing:border-box;padding:56px 64px;background:#15160F;color:#F4F1E8;font-family:Geist,system-ui,sans-serif;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:48px 40px;align-content:start">
+
+<!-- ANATOMY -->
+<div style="grid-column:span 4;display:flex;flex-direction:column;gap:20px">
+<span class="k">01 · Anatomy</span>
+<h2 class="h">One body, one eye</h2>
+<div style="display:flex;align-items:center;gap:28px">
+<svg width="180" height="180" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#D4FF3A"></ellipse><circle cx="31" cy="27" r="7.5" fill="#0E0F0C"></circle><circle cx="33.5" cy="24.5" r="2.4" fill="#F4F1E8"></circle><circle cx="52" cy="9" r="3.2" fill="#D4FF3A"></circle></svg>
+<div style="display:flex;flex-direction:column;gap:12px;font-size:13px;line-height:18px">
+<div><b style="font-weight:600">Body</b><br><span style="color:#A9A797">Metaball, Volt #D4FF3A. Shape = mood.</span></div>
+<div><b style="font-weight:600">Pupil</b><br><span style="color:#A9A797">Ink #0E0F0C, 27% of the body. Position = attention.</span></div>
+<div><b style="font-weight:600">Catchlight</b><br><span style="color:#A9A797">Always top right, never moves. Keeps it alive.</span></div>
+<div><b style="font-weight:600">Satellite</b><br><span style="color:#A9A797">Orbits once per finished step.</span></div>
+</div>
+</div>
+</div>
+
+<!-- GAZE -->
+<div style="grid-column:span 8;display:flex;flex-direction:column;gap:20px">
+<span class="k">02 · Gaze = where to look</span>
+<h2 class="h">The eye always looks at what matters right now</h2>
+<div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin-top:8px">
+<div class="cell"><svg width="88" height="88" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#D4FF3A"></ellipse><circle cx="28" cy="30" r="7" fill="#0E0F0C"></circle><circle cx="30.5" cy="27.5" r="2.2" fill="#F4F1E8"></circle></svg><span class="lbl">At you</span><span class="sub">Listening. Looks out of the screen, at the person talking.</span></div>
+<div class="cell"><svg width="88" height="88" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#D4FF3A"></ellipse><circle cx="34" cy="20" r="7" fill="#0E0F0C"></circle><circle cx="36.5" cy="17.5" r="2.2" fill="#F4F1E8"></circle></svg><span class="lbl">Up and away</span><span class="sub">Thinking. Glances up right, like recalling something.</span></div>
+<div class="cell"><svg width="88" height="88" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#D4FF3A"></ellipse><circle cx="15" cy="30" r="7" fill="#0E0F0C"></circle><circle cx="17.5" cy="27.5" r="2.2" fill="#F4F1E8"></circle></svg><span class="lbl">Scanning</span><span class="sub">Searching. Sweeps left ↔ right, 1.4s per pass.</span></div>
+<div class="cell"><svg width="88" height="88" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#D4FF3A"></ellipse><circle cx="30" cy="41" r="7" fill="#0E0F0C"></circle><circle cx="32.5" cy="38.5" r="2.2" fill="#F4F1E8"></circle></svg><span class="lbl">At the work</span><span class="sub">Working. Fixed on the mini screen and follows each click there.</span></div>
+<div class="cell"><svg width="88" height="88" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#FFB020"></ellipse><circle cx="22" cy="41" r="7" fill="#0E0F0C"></circle><circle cx="24.5" cy="38.5" r="2.2" fill="#F4F1E8"></circle></svg><span class="lbl">At the risk</span><span class="sub">Needs you. Points at the recipient or the file list.</span></div>
+</div>
+</div>
+
+<!-- EXPRESSIONS -->
+<div style="grid-column:span 7;display:flex;flex-direction:column;gap:20px">
+<span class="k">03 · Expressions</span>
+<h2 class="h">Mood lives in the body and the lid</h2>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 16px;margin-top:8px">
+<div class="cell"><svg width="72" height="72" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="32" rx="25" ry="21" fill="#D4FF3A"></ellipse><circle cx="28" cy="32" r="7" fill="#0E0F0C"></circle><rect x="18" y="20" width="20" height="12" fill="#D4FF3A"></rect></svg><span class="lbl">Idle</span><span class="sub">Lid half down, breathes every 4s.</span></div>
+<div class="cell"><svg width="72" height="72" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#D4FF3A"></ellipse><rect x="20" y="29" width="16" height="2.6" rx="1.3" fill="#0E0F0C"></rect></svg><span class="lbl">Blink</span><span class="sub">120ms, every 3–7s at random, also on each new step.</span></div>
+<div class="cell"><svg width="72" height="72" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#D4FF3A"></ellipse><path d="M21 32 Q28 23 35 32" fill="none" stroke="#0E0F0C" stroke-width="3.6" stroke-linecap="round"></path></svg><span class="lbl">Pleased</span><span class="sub">Done. Squints, hops 4px, then turns into ✓.</span></div>
+<div class="cell"><svg width="72" height="72" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="29" rx="23" ry="24" fill="#FFB020"></ellipse><circle cx="28" cy="29" r="4.5" fill="#0E0F0C"></circle><circle cx="29.5" cy="27.5" r="1.4" fill="#F4F1E8"></circle></svg><span class="lbl">Alert</span><span class="sub">Approval. Stretches up, pupil shrinks, holds still.</span></div>
+<div class="cell"><svg width="72" height="72" viewBox="0 0 56 56" aria-hidden="true"><path d="M28 14c13 0 24 8 24 21 0 9-10 14-24 14S4 44 4 35c0-13 11-21 24-21z" fill="#6B6A5E"></path><circle cx="28" cy="38" r="6.5" fill="#0E0F0C"></circle><rect x="19" y="26" width="18" height="10" fill="#6B6A5E"></rect></svg><span class="lbl">Sad</span><span class="sub">Error. Sags 10%, turns grey, lid droops.</span></div>
+<div class="cell"><svg width="72" height="72" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="31" rx="25" ry="22" fill="#D4FF3A"></ellipse><circle cx="28" cy="31" r="7" fill="#0E0F0C"></circle><path d="M8 14 L16 20 M48 14 L40 20" stroke="#8C8A7C" stroke-width="2.4" stroke-linecap="round"></path></svg><span class="lbl">Shrug</span><span class="sub">Denied or expired. Small sideways wobble.</span></div>
+<div class="cell"><svg width="72" height="72" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="none" stroke="#D4FF3A" stroke-width="2.5"></ellipse><circle cx="28" cy="30" r="7" fill="#D4FF3A"></circle></svg><span class="lbl">Paused</span><span class="sub">Hollow body. Not listening, mic off.</span></div>
+<div class="cell"><svg width="72" height="72" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#D4FF3A"></ellipse><circle cx="28" cy="30" r="7" fill="#0E0F0C"></circle><circle cx="30.5" cy="27.5" r="2.2" fill="#F4F1E8"></circle><circle cx="46" cy="46" r="8" fill="#FF4D2E"></circle><path d="M46 42v4.5M46 49.5v.1" stroke="#15160F" stroke-width="2" stroke-linecap="round"></path></svg><span class="lbl">Safe mode off</span><span class="sub">Permanent badge, so it is never forgotten.</span></div>
+</div>
+</div>
+
+<!-- SIZES -->
+<div style="grid-column:span 5;display:flex;flex-direction:column;gap:20px">
+<span class="k">04 · Sizes and family</span>
+<h2 class="h">Same creature, every size</h2>
+<div style="display:flex;align-items:flex-end;gap:28px;margin-top:8px">
+<div class="cell"><svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#D4FF3A"></ellipse><circle cx="31" cy="27" r="7" fill="#0E0F0C"></circle><circle cx="33.5" cy="24.5" r="2.2" fill="#F4F1E8"></circle></svg><span class="m">56 · overlay</span></div>
+<div class="cell"><svg width="32" height="32" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#D4FF3A"></ellipse><circle cx="31" cy="27" r="8" fill="#0E0F0C"></circle></svg><span class="m">32 · compact</span></div>
+<div class="cell"><svg width="24" height="24" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#D4FF3A"></ellipse><circle cx="30" cy="29" r="9" fill="#0E0F0C"></circle></svg><span class="m">24 · dictation</span></div>
+<div class="cell"><svg width="16" height="16" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#D4FF3A"></ellipse><circle cx="30" cy="29" r="11" fill="#0E0F0C"></circle></svg><span class="m">16 · menu bar</span></div>
+</div>
+<div style="font-size:13px;line-height:18px;color:#A9A797;margin-top:4px">Below 24px the catchlight goes and the pupil grows, so the eye still reads.</div>
+<div style="display:flex;align-items:center;gap:14px;margin-top:6px">
+<span class="k" style="margin-right:4px">Background agents</span>
+<svg width="28" height="28" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#D4FF3A"></ellipse><circle cx="30" cy="38" r="8" fill="#0E0F0C"></circle></svg>
+<svg width="28" height="28" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#7CF5FF"></ellipse><circle cx="22" cy="30" r="8" fill="#0E0F0C"></circle></svg>
+<svg width="28" height="28" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#FF9BE0"></ellipse><circle cx="34" cy="22" r="8" fill="#0E0F0C"></circle></svg>
+<svg width="28" height="28" viewBox="0 0 56 56" aria-hidden="true"><ellipse cx="28" cy="30" rx="25" ry="23" fill="#B9A6FF"></ellipse><path d="M20 32 Q28 24 36 32" fill="none" stroke="#0E0F0C" stroke-width="4" stroke-linecap="round"></path></svg>
+</div>
+<div style="font-size:13px;line-height:18px;color:#A9A797">Each agent gets its own body color. Amber stays reserved for "needs you".</div>
+</div>
+
+<!-- MOTION -->
+<div style="grid-column:span 12;display:flex;flex-direction:column;gap:14px">
+<span class="k">05 · Motion</span>
+<div class="tr" style="border-top:0;color:#8C8A7C;font:500 11.5px 'Geist Mono',monospace;letter-spacing:.06em;text-transform:uppercase"><span>State</span><span>Motion</span><span>Timing</span><span>Reduce Motion</span></div>
+<div class="tr"><span>Listening</span><span>scaleY 1 → 0.86 driven by voice level, 80ms low-pass</span><span class="m">60 fps</span><span style="color:#A9A797">Static, a small level bar under the eye</span></div>
+<div class="tr"><span>Thinking</span><span>Body kneads through noise, pupil drifts up right</span><span class="m">2.4s loop</span><span style="color:#A9A797">Static, pupil up right</span></div>
+<div class="tr"><span>Working</span><span>Pupil follows the mini screen click markers, satellite orbits per step</span><span class="m">420ms spring</span><span style="color:#A9A797">Pupil fixed down, no satellite</span></div>
+<div class="tr"><span>Needs you</span><span>Turns amber, stretches up, then holds completely still</span><span class="m">300ms, then 0</span><span style="color:#A9A797">Colour crossfade 150ms</span></div>
+<div class="tr"><span>Done</span><span>Squint, 4px hop, morph into ✓</span><span class="m">520ms spring</span><span style="color:#A9A797">Crossfade to ✓</span></div>
+<div class="tr"><span>Blink</span><span>Pupil collapses to a line and back</span><span class="m">120ms</span><span style="color:#A9A797">Off</span></div>
+<div class="tr" style="border-bottom:1px solid rgba(244,241,232,.08)"><span>Spring</span><span>Entry from the eye's origin, scale 0.92 → 1</span><span class="m">cubic-bezier(.34,1.56,.64,1) 380ms</span><span style="color:#A9A797">Fade 150ms</span></div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":1180}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
