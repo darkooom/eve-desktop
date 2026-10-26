@@ -1,5 +1,5 @@
 {
-  description = "Atticus: macOS voice and AI assistant";
+  description = "EVE Desktop: German-first macOS voice and AI assistant";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -38,8 +38,8 @@
           pkgs = pkgsFor system;
         in
         pkgs.writeShellApplication {
-          name = "atticus";
-          runtimeInputs = [ pkgs.python313 ];
+          name = "eve-desktop";
+          runtimeInputs = [ pkgs.python313 pkgs.nodejs_24 ];
           text = ''
             set -euo pipefail
             src=${./.}
@@ -51,21 +51,21 @@
                 python3 -c 'import pathlib, sys; compile(pathlib.Path(sys.argv[1]).read_text(), sys.argv[1], "exec")' "$src/atticus.py"
                 bash -n "$src/build.sh"
                 bash -n "$src/install.sh"
-                printf '%s\n' 'atticus source checks passed'
+                printf '%s\n' 'EVE Desktop source checks passed'
                 ;;
               --version)
                 printf '%s\n' "atticus ${version}"
                 ;;
               --help|-h|help)
                 cat <<'EOF'
-            Atticus launcher for macOS.
+            EVE Desktop launcher for macOS.
 
             Usage:
-              atticus              Install or update Atticus.app
-              atticus --install    Install or update Atticus.app
-              atticus --check      Run packaged source checks
-              atticus --version    Print the packaged version
-              atticus --help       Show this help
+              eve-desktop              Install or update EVE Desktop.app
+              eve-desktop --install    Install or update EVE Desktop.app
+              eve-desktop --check      Run packaged source checks
+              eve-desktop --version    Print the packaged version
+              eve-desktop --help       Show this help
 
             Building requires macOS 26 or later and Apple's command line tools.
             Full use also requires Claude Code (with Claude or a custom server), Devin, or Pi.
@@ -78,10 +78,10 @@
             esac
           '';
           meta = with pkgs.lib; {
-            description = "Atticus macOS app launcher";
-            homepage = "https://github.com/SaarthurR/atticus-mac";
+            description = "EVE Desktop macOS app launcher";
+            homepage = "https://github.com/darkooom/eve-desktop";
             license = licenses.mit;
-            mainProgram = "atticus";
+            mainProgram = "eve-desktop";
             platforms = targetSystems;
           };
         };
@@ -90,30 +90,28 @@
       packages = forEachSystem (
         system:
         let
-          atticus = packageFor system;
+          eve-desktop = packageFor system;
         in
         {
-          inherit atticus;
-          atticus-mac = atticus;
-          source = atticus;
-          default = atticus;
+          inherit eve-desktop;
+          source = eve-desktop;
+          default = eve-desktop;
         }
       );
 
       apps = forEachSystem (
         system:
         let
-          atticus = self.packages.${system}.default;
-          program = "${atticus}/bin/atticus";
+          eve-desktop = self.packages.${system}.default;
+          program = "${eve-desktop}/bin/eve-desktop";
           app = {
             type = "app";
             inherit program;
-            inherit (atticus) meta;
+            inherit (eve-desktop) meta;
           };
         in
         {
-          atticus = app;
-          atticus-mac = app;
+          eve-desktop = app;
           default = app;
         }
       );
@@ -133,7 +131,7 @@
               pkgs.act
             ];
             shellHook = ''
-              echo "Atticus development shell. Building the app requires Apple's command line tools."
+              echo "EVE Desktop development shell. Building the app requires Apple's command line tools."
             '';
           };
       });

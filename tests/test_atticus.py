@@ -984,7 +984,7 @@ print('Ready.')
              python_fixture_cli():
             reply, _, _ = atticus.run_pi('test')
         say.assert_called_with('!', 'setup')
-        self.assertEqual(reply, 'Pi needs a provider and model. Open Atticus Settings, choose Set Up, then try again.')
+        self.assertEqual(reply, 'Pi needs a provider and model. Open EVE Desktop Settings, choose Set Up, then try again.')
         self.assertEqual(atticus.run.why, 'provider_needed')
 
     def test_pi_json_errors_are_failures_even_when_the_cli_exits_zero(self):
@@ -1075,7 +1075,7 @@ print(json.dumps({{'type':'message_end','message':{{'role':'assistant','content'
                 self.assertEqual((r.returncode, r.stdout, r.stderr), (plain.returncode, plain.stdout, plain.stderr))
             if args == ['--gate']: self.assertEqual(json.loads(r.stdout)['decision'], 'block')
             else: self.assertEqual(r.returncode, 2)
-        self.assertTrue(list((home / 'Library/Caches/Atticus').rglob('atticus.*.pyc')))
+        self.assertTrue(list((home / 'Library/Caches/EVE Desktop').rglob('atticus.*.pyc')))
         self.assertFalse((app / '__pycache__').exists())   # never written inside the signed app
         hook = json.loads(Path(atticus.devin_config(str(home))).read_text())['hooks']['PreToolUse'][0]['hooks'][0]['command']
         self.assertTrue(hook.startswith(f'ATTICUS_CLIENT=devin /bin/sh "{atticus.ME}" --gate'))
@@ -1399,7 +1399,7 @@ print(json.dumps({{'type':'message_end','message':{{'role':'assistant','content'
                 self.assertEqual(args[args.index('--model')+1],expected)
 
     def test_stream_requires_a_real_terminal_answer(self):
-        for stream, expected in [([], 'Claude’s helper exited without returning a result. Open Atticus Settings, choose Set Up, then try again.'),
+        for stream, expected in [([], 'Claude’s helper exited without returning a result. Open EVE Desktop Settings, choose Set Up, then try again.'),
                                  ([{'type': 'result', 'result': ''}], 'Claude returned an empty answer. Please try again.'),
                                  ([{'type': 'result', 'result': 'Found it.', 'total_cost_usd': .001}], 'Found it.')]:
             p = unittest.mock.Mock()
@@ -1572,7 +1572,7 @@ print(json.dumps({{'type':'message_end','message':{{'role':'assistant','content'
                     reply, _, _ = atticus.run('test', p)
                 if is_error and text == error:
                     self.assertEqual(say.call_args_list.count(unittest.mock.call('!', 'setup')), 1)
-                    self.assertEqual(reply, 'Your Claude sign-in expired. Open Atticus Settings to sign in again.')
+                    self.assertEqual(reply, 'Your Claude sign-in expired. Open EVE Desktop Settings to sign in again.')
                     self.assertFalse(atticus.run.ok)
                 elif is_error:
                     self.assertIn('temporarily unavailable', reply)
@@ -1938,9 +1938,9 @@ class WatchAndBudgetTests(unittest.TestCase):
              patch('sys.stdout', new_callable=io.StringIO) as out:
             atticus.set_switch('key binding', 'off')
         ask.assert_not_called()
-        opened.assert_called_once_with(['open', '-a', 'Atticus'], capture_output=True)
-        self.assertIn('Atticus Settings is open; change it there', out.getvalue())
-        self.assertIn('Unsupported: open -a Atticus; say change it there', atticus.SYSTEM)
+        opened.assert_called_once_with(['open', '-a', 'EVE Desktop'], capture_output=True)
+        self.assertIn('EVE Desktop Settings is open; change it there', out.getvalue())
+        self.assertIn('Unsupported: open -a EVE Desktop; say change it there', atticus.SYSTEM)
 
     def test_unknown_command_never_shows_raw_shell(self):
         self.assertEqual(atticus.label('Bash', {'command': 'cat > /private/var/folders/x/prompt.txt <<EOF'}), 'Working on it')
@@ -1980,7 +1980,7 @@ class WatchAndBudgetTests(unittest.TestCase):
         self.assertIn('Use relevant window text', full)
         self.assertLessEqual(len(atticus.MODEL_OFFER), 211)
         self.assertLessEqual(len(full), 10000)
-        self.assertLessEqual(len(full.replace(atticus.ME, os.path.expanduser('~/Applications/Atticus.app/Contents/Resources/atticus.py'))), 10000)
+        self.assertLessEqual(len(full.replace(atticus.ME, os.path.expanduser('~/Applications/EVE Desktop.app/Contents/Resources/atticus.py'))), 10000)
 
 
 class BoxLookTests(unittest.TestCase):

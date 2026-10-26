@@ -374,7 +374,8 @@ print("single delivery fallback ok")
         self.assertNotIn('dictating ?', guard[:guard.index('once(false)')])
         module = source[source.index('    func speechModule('):source.index('    func prepareSpeech(')]
         self.assertIn('let tr = speechModule(dictate: dictating)', source)
-        self.assertIn('SpeechTranscriber(locale: en, transcriptionOptions: [], reportingOptions: [.volatileResults]', module)
+        self.assertIn('SpeechTranscriber(locale: german, transcriptionOptions: [], reportingOptions: [.volatileResults]', module)
+        self.assertIn('Locale(identifier: "de-DE")', module)
         self.assertIn('transcriptionOptions: [.punctuation], reportingOptions: [.volatileResults]', module)
 
     def test_fn_and_modifier_only_shortcuts_use_flags_events(self):

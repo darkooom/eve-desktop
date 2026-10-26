@@ -140,11 +140,11 @@ class AgentTests(unittest.TestCase):
         self.assertIsNone(atticus.parse_handoff('[agent-profile {"action":"invent","name":"Scout"}]'))
 
     def test_full_installed_prompt_including_handoff_stays_under_budget(self):
-        installed='/Users/exampleuser/Applications/Atticus.app/Contents/Resources/atticus.py'
+        installed='/Users/exampleuser/Applications/EVE Desktop.app/Contents/Resources/atticus.py'
         for draw in (False,True):   # Drawings off swaps DRAWING for POINTER: both must fit
             self.prefs.update(draw=draw,pointer=True,askMe=True,learnMe=True,tips=True,learn=True)
             prompt=atticus.system_prompt(atticus.ASK_FIRST)
-            self.assertLessEqual(len(prompt.replace(atticus.ME,installed)),10050)   # same 1.3.2 cap as test_screen_draw
+            self.assertLessEqual(len(prompt.replace(atticus.ME,installed)),10175)   # branded bundle path is longer than Atticus.app
         self.assertIn('(--look if none)',atticus.POINTER)
         self.assertLess(prompt.index(atticus.AGENT_HANDOFF),250);self.assertEqual(prompt.count(atticus.AGENT_HANDOFF),1)
 
@@ -1118,7 +1118,7 @@ class AgentTests(unittest.TestCase):
         self.assertEqual(restored.rows[offered['id']]['status'],'stopped')
         restored.tick();self.assertEqual(restored.running(),3)
         self.assertEqual(restored.rows[rows[3]['id']]['status'],'queued')
-        self.until(lambda:bool([e for e in atticus.read_rows(str(Path(first['directory'])/'log.jsonl')) if e.get('event')=='followup' and 'Atticus restarted' in e.get('text','')]))
+        self.until(lambda:bool([e for e in atticus.read_rows(str(Path(first['directory'])/'log.jsonl')) if e.get('event')=='followup' and 'EVE Desktop restarted' in e.get('text','')]))
         self.assertIsNone(restored.rows[first['id']]['question'])
         self.assertEqual(restored.rows[first['id']]['session'],session);self.assertFalse(approval.exists())
         with patch.object(atticus.shutil,'which',return_value='/fixture/claude'),patch.object(atticus.subprocess,'Popen') as launch:

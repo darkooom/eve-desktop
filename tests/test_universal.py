@@ -342,4 +342,4 @@ class UniversalTests(unittest.TestCase):
         self.assertNotIn('on Amazon', atticus.SYSTEM)
         full = atticus.SYSTEM + atticus.ASK_ME + atticus.POINTER + atticus.LEARN_ME + atticus.TEACH + atticus.ASK_FIRST + atticus.WORKFLOW
         self.assertLessEqual(len(full), 10000)
-        print(f'UNIVERSAL PROMPT CHARS: {len(full)}; INSTALLED: {len(full.replace(atticus.ME, os.path.expanduser("~/Applications/Atticus.app/Contents/Resources/atticus.py")))}; TEXT PAGE CHARS: {atticus.TEXT_PAGE}', flush=True)
+        print(f'UNIVERSAL PROMPT CHARS: {len(full)}; INSTALLED: {len(full.replace(atticus.ME, os.path.expanduser("~/Applications/EVE Desktop.app/Contents/Resources/atticus.py")))}; TEXT PAGE CHARS: {atticus.TEXT_PAGE}', flush=True)

@@ -1,6 +1,6 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
-<!-- Atticus settings. Atticus.swift calls st.load({prefs, state}) and gets {do:'set', k, v} and other actions back. -->
+<!-- EVE Desktop settings. EVE Desktop.swift calls st.load({prefs, state}) and gets {do:'set', k, v} and other actions back. -->
 <style>
   :root {
     --fg: #1d1d1f; --fg2: #6e6e73; --fg3: #6e6e73; --card: #fff; --bg: #f5f5f7; --ctl: #fff; --well: rgba(0,0,0,.045); --line: rgba(0,0,0,.08);
@@ -111,6 +111,11 @@
 
   select { font: 13px system-ui; color: var(--fg); background: var(--ctl); border: 0; border-radius: 6px; padding: 3px 6px;
     box-shadow: inset 0 0 0 .5px var(--line), 0 1px 1px rgba(0,0,0,.05); }
+  select:disabled, .btn:disabled { opacity: .45; pointer-events: none; }
+  .rowactions { display: flex; align-items: center; gap: 7px; flex: none; }
+  .rowactions select { max-width: 230px; }
+  .row .t span.ok { color: var(--ok-text); }
+  .row .t span.bad { color: var(--warn); }
   input[type=range] { width: 150px; accent-color: var(--accent); }
   .val { width: 44px; text-align: right; color: var(--fg2); font-variant-numeric: tabular-nums; }
 
@@ -269,7 +274,7 @@
 </style></head><body>
 
 <nav>
-  <div class="me"><img id="icon" alt=""><div><b>Atticus</b><span>Just ask.</span></div></div>
+  <div class="me"><img id="icon" alt=""><div><b>EVE Desktop</b><span>Just ask.</span></div></div>
   <button id="agentsnav" aria-label="Open Agents"><i class="ni" style="background:#30b0c7"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="13" height="12" rx="2.5"/><path d="M8 4.5h9.5A2.5 2.5 0 0 1 20 7v9"/></svg></i>Agents<span class="count" id="agentcount"></span></button>
   <button data-s="dictation" id="dictationnav"><i class="ni" style="background:#ff375f"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M6 11v1a6 6 0 0 0 12 0v-1M12 18v3M8 21h8"/></svg></i>Dictation</button>
   <button data-s="general" class="on" aria-current="page"><i class="ni" style="background:#8e8e93"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg></i>General</button>
@@ -327,21 +332,25 @@
     <h3>Dictation</h3>
     <div class="group">
       <div class="row"><div class="t"><b>Microphone</b></div><select data-k="microphone"></select></div>
-      <div class="row"><div class="t"><b>Speech model</b><span>Speech stays on this Mac. <i class="info" title="Speech: free, English (US), on this Mac. Dictation: the model your keyboard’s mic uses.">i</i></span></div><div class="seg" data-k="speechModel"><button data-v="speech">Speech</button><button data-v="dictation">Dictation</button></div></div>
+      <div class="row"><div class="t"><b>Speech model</b><span>Speech stays on this Mac. <i class="info" title="Speech: free, German (DE), on this Mac. Dictation: the model your keyboard’s mic uses.">i</i></span></div><div class="seg" data-k="speechModel"><button data-v="speech">Speech</button><button data-v="dictation">Dictation</button></div></div>
       <div class="row"><div class="t"><b>Sound volume</b></div><input type="range" min="0" max="0.6" step="0.02" data-k="volume"><span class="val" id="volv"></span></div>
     </div>
     <h3>Answers</h3>
     <div class="group">
-      <div class="row"><div class="t"><b>Show answers</b><span>Word by word as Atticus writes, or all at the end.</span></div><div class="seg" data-k="showAnswers"><button data-v="stream">As they arrive</button><button data-v="once">All at once</button></div></div>
+      <div class="row"><div class="t"><b>Show answers</b><span>Word by word as EVE Desktop writes, or all at the end.</span></div><div class="seg" data-k="showAnswers"><button data-v="stream">As they arrive</button><button data-v="once">All at once</button></div></div>
       <div class="row"><div class="t"><b>Read answers aloud</b><span>Esc stops it.</span></div><label class="sw"><input type="checkbox" data-k="speak"></label></div>
+      <div class="row" id="ttsProviderRow"><div class="t"><b id="ttsProviderLabel">Voice service</b><span>System voice works offline. ElevenLabs uses your account.</span></div><div class="seg" data-k="ttsProvider" role="group" aria-labelledby="ttsProviderLabel"><button data-v="system">System</button><button data-v="elevenlabs">ElevenLabs</button></div></div>
+      <div class="row" id="elevenVoiceRow"><div class="t"><b>ElevenLabs voice</b><span id="elevenStatus" role="status" aria-live="polite">Loading voices…</span></div><div class="rowactions"><select id="elevenVoice" aria-label="ElevenLabs voice" disabled><option>Loading…</option></select><button class="btn" id="elevenReload">Retry</button></div></div>
+      <div class="row" id="elevenModelRow"><div class="t"><b id="elevenModelLabel">Voice quality</b><span id="elevenModelHint">Fast responds sooner and costs less.</span></div><div class="seg" data-k="elevenlabsModel" role="group" aria-labelledby="elevenModelLabel"><button data-v="eleven_flash_v2_5">Fast</button><button data-v="eleven_v4">Natural</button></div></div>
+      <div class="row" id="elevenTestRow"><div class="t"><b>Voice sample</b><span>Generates one short line and uses a few ElevenLabs credits.</span></div><button class="btn" id="elevenTest">Play Sample</button></div>
       <div class="row"><div class="t"><b>Draw on screen to show you</b><span>Esc clears. To mark a spot yourself, use Point at your screen.</span></div><label class="sw"><input type="checkbox" data-k="draw" aria-label="Draw on screen to show you"></label></div>
     </div>
-    <h3>Atticus</h3>
+    <h3>EVE Desktop</h3>
     <div class="group">
       <div class="row"><div class="t"><b>Open at login</b></div><label class="sw"><input type="checkbox" data-k="login"></label></div>
-      <div class="row"><div class="t"><b>Pause Atticus</b></div><label class="sw"><input type="checkbox" data-k="paused"></label></div>
+      <div class="row"><div class="t"><b>Pause EVE Desktop</b></div><label class="sw"><input type="checkbox" data-k="paused"></label></div>
       <div class="row"><div class="t"><b>Show in menu bar</b><span>Hidden? Open it from Spotlight.</span></div><label class="sw"><input type="checkbox" data-k="menuIcon"></label></div>
-      <div class="row"><div class="t"><b>Quit Atticus</b><span>Reopen it from Spotlight.</span></div><button class="btn red" data-do="quit">Quit</button></div>
+      <div class="row"><div class="t"><b>Quit EVE Desktop</b><span>Reopen it from Spotlight.</span></div><button class="btn red" data-do="quit">Quit</button></div>
     </div>
     <h3>Scheduled routines</h3>
     <div class="group" id="routines"></div>
@@ -349,7 +358,7 @@
 
   <section id="brain">
     <h1>Intelligence</h1>
-    <p class="lede" id="brainlede">Atticus thinks with Claude, on your Claude plan.</p>
+    <p class="lede" id="brainlede">EVE Desktop thinks with Claude, on your Claude plan.</p>
     <h3>Model</h3>
     <div class="group">
       <div class="row"><div class="t"><b>AI client</b><span id="clientwhy"></span></div><div class="seg" data-k="client"><button data-v="claude">Claude</button><button data-v="devin">Devin</button><button data-v="pi">Pi</button></div></div>
@@ -404,7 +413,7 @@
   <section id="apps">
     <button class="btn" id="appsback" onclick="st.tab('account')">← Account &amp; Access</button>
     <h1><i class="ni" style="background:#ff453a" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6"/></svg></i>Apps</h1>
-    <p class="lede">Tick the apps Atticus can control. Allow them now so it won’t stop to ask.</p>
+    <p class="lede">Tick the apps EVE Desktop can control. Allow them now so it won’t stop to ask.</p>
     <div class="appbar"><div class="seg" id="appview" role="group" aria-label="App list"><button data-v="key" class="on" aria-pressed="true">Key Apps</button><button data-v="all" aria-pressed="false">All Apps</button></div>
       <input id="appq" class="search" placeholder="Search all apps" aria-label="Search all apps"><button class="btn blue" id="allow" disabled>Allow</button></div>
     <div id="applist"><div class="group"><div class="empty">Finding your apps…</div></div></div>
@@ -413,7 +422,7 @@
 
   <section id="account">
     <h1>Account &amp; Access</h1>
-    <p class="lede">What Atticus needs to work.</p>
+    <p class="lede">What EVE Desktop needs to work.</p>
     <div class="group">
       <div class="row"><div class="t"><b id="planname">Claude</b><span class="status"><i class="dot" id="pdot"></i><span id="ptext">Checking…</span></span></div><button class="btn" data-do="setup" id="pbtn">Set Up</button></div>
     </div>
@@ -424,9 +433,9 @@
     <h3>Privacy</h3>
     <div class="group">
       <div class="row"><div class="t"><b>Look at my screen</b><span>Only when you mean it, like “this”. <i class="info" title="The picture goes with that one ask.">i</i></span></div><div class="seg" data-k="screen"><button data-v="auto">Automatic</button><button data-v="never">Never</button></div></div>
-      <div class="row"><div class="t"><b>Hide from screen sharing</b><span id="sharingUnavailable" hidden>On this macOS version, Atticus windows can appear in screen sharing.</span></div><label class="sw"><input type="checkbox" data-k="hideWhenSharing"></label></div>
+      <div class="row"><div class="t"><b>Hide from screen sharing</b><span id="sharingUnavailable" hidden>On this macOS version, EVE Desktop windows can appear in screen sharing.</span></div><label class="sw"><input type="checkbox" data-k="hideWhenSharing"></label></div>
       <div class="row"><div class="t"><b>Count me as a user</b><span>Anonymous feature, timing and error counts. <i class="info" title="A random ID, with no task text, dictated words, files or screen content.">i</i></span></div><label class="sw"><input type="checkbox" data-k="stats"></label></div>
-      <div class="row"><div class="t"><b>Help improve Atticus</b><span>Anonymous reports when a task fails. <i class="info" title="Sends what you asked, the steps it took and why. Emails, numbers, file paths and anything typed for you are removed first.">i</i></span></div><label class="sw"><input type="checkbox" data-k="improve"></label></div>
+      <div class="row"><div class="t"><b>Help improve EVE Desktop</b><span>Anonymous reports when a task fails. <i class="info" title="Sends what you asked, the steps it took and why. Emails, numbers, file paths and anything typed for you are removed first.">i</i></span></div><label class="sw"><input type="checkbox" data-k="improve"></label></div>
     </div>
     <h3>Permissions</h3>
     <div class="group" id="perms">
@@ -439,7 +448,7 @@
     <h3>Agents</h3>
     <div class="group" id="agentsetup">
       <div class="row"><div class="t"><b>Set up agents</b><span>Asked only when a task needs them.</span></div><button class="btn blue" id="enableAll">Enable All</button></div>
-      <div class="row"><div class="t"><b>Page reading in Chrome</b><span>Atticus turns this on itself.</span></div><span class="pill ok">On</span><button class="btn" data-g="chrome">Turn On</button></div>
+      <div class="row"><div class="t"><b>Page reading in Chrome</b><span>EVE Desktop turns this on itself.</span></div><span class="pill ok">On</span><button class="btn" data-g="chrome">Turn On</button></div>
       <div class="row"><div class="t"><b>Automation</b><span>Lets agents script your apps.</span></div><span class="pill ok">Allowed</span><button class="btn" data-g="auto">Allow</button></div>
       <div class="row"><div class="t"><b>Calendar</b><span>When you ask.</span></div><span class="pill ok">Allowed</span><button class="btn" data-g="calendar">Allow</button></div>
       <div class="row"><div class="t"><b>Claude connectors</b><span id="conntext">Checking your Claude account…</span></div><button class="btn" data-do="connectors">Connect in Claude</button></div>
@@ -475,18 +484,18 @@
   </section>
 
   <section id="about">
-    <div class="about"><img id="bigicon" alt=""><h1>Atticus</h1><p id="aboutver"></p></div>
+    <div class="about"><img id="bigicon" alt=""><h1>EVE Desktop</h1><p id="aboutver"></p></div>
     <h3>Updates</h3>
     <div class="group">
       <div class="row" id="autoUpdateRow"><div class="t"><b>Update automatically</b><span>Restarts when you’re not using it.</span></div><label class="sw"><input type="checkbox" data-k="autoUpdate"></label></div>
       <div class="row"><div class="t"><b id="updateTitle">Check for updates</b><span id="upstatus">Never checked this session.</span></div><button class="btn" data-do="checkUpdate" id="checkUpdate">Check Now</button></div>
     </div>
-    <h3>Atticus</h3>
+    <h3>EVE Desktop</h3>
     <div class="group">
       <div class="row"><div class="t"><b>Source code</b><span>On GitHub.</span></div><button class="btn" data-do="github">Open</button></div>
-      <div class="row"><div class="t"><b>Support Atticus</b><span>A tip keeps it going.</span></div><button class="btn" data-do="kofi">Leave a Tip</button></div>
+      <div class="row"><div class="t"><b>Support the original author</b><span>Opens SaarthurR’s Ko-fi page.</span></div><button class="btn" data-do="kofi">Tip SaarthurR</button></div>
       <div class="row"><div class="t"><b>Tip reminders</b><span>Now and then, a small ask under an answer.</span></div><label class="sw"><input type="checkbox" data-k="support"></label></div>
-      <div class="row"><div class="t"><b>Ideas when I’m away</b><span>Now and then, a short idea if you haven’t used Atticus.</span></div><label class="sw"><input type="checkbox" data-k="comeBack"></label></div>
+      <div class="row"><div class="t"><b>Ideas when I’m away</b><span>Now and then, a short idea if you haven’t used EVE Desktop.</span></div><label class="sw"><input type="checkbox" data-k="comeBack"></label></div>
     </div>
   </section>
   <section id="feedback">
@@ -505,9 +514,25 @@
   const esc = t => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));   // for text put into innerHTML
   const post = m => window.webkit?.messageHandlers.st.postMessage(m);
   let P = {};
+  let elevenState = 'idle', elevenVoices = [], elevenTesting = false;
   let hotkeyTaken = false, dictateHotkeyTaken = false;   // another app owns a saved shortcut, so it does nothing
-  const shortcutHint = () => hotkeyTaken ? 'Another app uses this shortcut. Change it to use Atticus.' : P.input === 'type' ? 'Press to type. Return sends.' : P.talkMode === 'toggle' ? 'Press to listen. Press again to send.' : 'Hold it, talk, let go.';
-  const set = (k, v) => { P[k] = v; post({ do: 'set', k, v }); paint(); };
+  const shortcutHint = () => hotkeyTaken ? 'Another app uses this shortcut. Change it to use EVE Desktop.' : P.input === 'type' ? 'Press to type. Return sends.' : P.talkMode === 'toggle' ? 'Press to listen. Press again to send.' : 'Hold it, talk, let go.';
+  const set = (k, v) => { P[k] = v; post({ do: 'set', k, v }); paint(); if (k === 'ttsProvider' && v === 'elevenlabs' && elevenState === 'idle') requestElevenVoices(); };
+  function requestElevenVoices() {
+    elevenState = 'loading'; paintElevenVoices(); post({ do: 'elevenVoices' });
+  }
+  function paintElevenVoices() {
+    const select = $('elevenVoice'), status = $('elevenStatus'), reload = $('elevenReload'), test = $('elevenTest');
+    reload.disabled = elevenState === 'loading'; reload.textContent = elevenState === 'loading' ? 'Loading…' : 'Reload';
+    select.disabled = elevenState === 'loading' || !elevenVoices.length;
+    test.disabled = elevenTesting || !P.elevenlabsVoice || elevenState === 'loading';
+    test.textContent = elevenTesting ? 'Playing…' : 'Play Sample';
+    if (elevenTesting) { status.textContent = 'Generating voice sample…'; status.className = ''; }
+    else if (elevenState === 'loading') { status.textContent = elevenVoices.length ? 'Refreshing voices…' : 'Loading voices…'; status.className = ''; }
+    else if (elevenState === 'error') { status.textContent = status.dataset.error || 'Couldn’t load voices. Retry.'; status.className = 'bad'; }
+    else if (elevenState === 'empty') { status.textContent = 'No voices are available in this ElevenLabs account.'; status.className = 'bad'; }
+    else if (elevenState === 'ok') { status.textContent = `Connected · ${elevenVoices.length} voice${elevenVoices.length === 1 ? '' : 's'}`; status.className = 'ok'; }
+  }
   // One status line for the whole window, with an optional action. It fades on its own; a waiting deletion happens when it goes.
   let noticeTimer, pending = null;   // pending: {msg, sel}, a deletion its Undo can still take back
   function showNotice(text, action, run) {
@@ -590,7 +615,7 @@
   let connected = false;   // Enable All opens claude.ai's connectors page only when none is connected
   document.getElementById('enableAll').onclick = () => post({ do: 'enableAll', connected: String(connected) });
 
-  // Shortcut: Atticus.swift records the keys; the label is like "⌃⌥Space" (modifier symbols, then the key)
+  // Shortcut: EVE Desktop.swift records the keys; the label is like "⌃⌥Space" (modifier symbols, then the key)
   const capsOf = label => { const m = label.match(/^([⌃⌥⇧⌘]*)(.*)$/); return [...m[1]].concat(m[2] ? [m[2]] : []); };
   const showCaps = (label, hint) => $('caps').innerHTML = capsOf(label).map(c => `<i class="cap${c.length > 2 ? ' wide' : ''}">${c}</i>`).join('')
     + (hint ? `<span class="hint">${hint}</span>` : '');
@@ -625,6 +650,13 @@
   document.querySelectorAll('.info').forEach(i => { i.tabIndex = 0; i.setAttribute('role', 'img'); i.setAttribute('aria-label', i.title); });
 
   document.querySelector('[data-k="microphone"]').onchange = e => set('microphone', e.target.value);
+  $('elevenVoice').onchange = e => {
+    const voice = elevenVoices.find(v => v.id === e.target.value); if (!voice) return;
+    P.elevenlabsVoiceName = voice.name; post({ do: 'set', k: 'elevenlabsVoiceName', v: voice.name }); set('elevenlabsVoice', voice.id);
+    $('elevenStatus').textContent = `Saved · ${voice.name}`; $('elevenStatus').className = 'ok';
+  };
+  $('elevenReload').onclick = requestElevenVoices;
+  $('elevenTest').onclick = () => { elevenTesting = true; paintElevenVoices(); post({ do: 'elevenTest' }); };
   document.querySelectorAll('.seg[data-k]').forEach(g => g.querySelectorAll('button').forEach(b => b.onclick = () => set(g.dataset.k, b.dataset.v)));
   document.querySelectorAll('.sw input[data-k]').forEach(i => i.onchange = () => set(i.dataset.k, i.checked));
   document.querySelectorAll('input[type=range]').forEach(r => {
@@ -655,6 +687,10 @@
     if (!recording && $('schint').className !== 'warn') $('schint').textContent = shortcutHint();
     $('talkhint').textContent = P.talkMode === 'toggle' ? 'Pauses keep listening.' : 'Esc cancels.';
     document.querySelector('[data-k=talkMode]').closest('.row').hidden = P.input === 'type';
+    const showVoice = !!P.speak, showEleven = showVoice && P.ttsProvider === 'elevenlabs';
+    $('ttsProviderRow').hidden = !showVoice; $('elevenVoiceRow').hidden = $('elevenModelRow').hidden = $('elevenTestRow').hidden = !showEleven;
+    $('elevenModelHint').textContent = P.elevenlabsModel === 'eleven_v4' ? 'Natural has the best expression, with a little more delay.' : 'Fast responds sooner and costs less.';
+    paintElevenVoices();
     document.querySelectorAll('.sw input[data-k]').forEach(i => i.checked = !!P[i.dataset.k]);
     document.querySelectorAll('select').forEach(s => {
       const value = P[s.dataset.k];
@@ -665,10 +701,10 @@
     $('routingwhy').textContent = WHY[P.routing] || '';
     SERVER.forEach(k => { if (document.activeElement !== $(k)) $(k).value = P[k] || ''; });
     $('agentServerModel').hidden = !P.apiBase || other;
-    $('brainlede').textContent = devin ? 'Atticus thinks with Devin, on your Devin plan.' : pi ? 'Atticus thinks with the provider and model selected in Pi.'
-      : P.apiBase ? 'Atticus thinks with the model on your custom server.' : 'Atticus thinks with Claude, on your Claude plan.';
-    $('clientwhy').textContent = devin ? 'Devin CLI, with Atticus’s safety check.'
-      : pi ? 'Pi CLI, local models too, with Atticus’s safety check.'
+    $('brainlede').textContent = devin ? 'EVE Desktop thinks with Devin, on your Devin plan.' : pi ? 'EVE Desktop thinks with the provider and model selected in Pi.'
+      : P.apiBase ? 'EVE Desktop thinks with the model on your custom server.' : 'EVE Desktop thinks with Claude, on your Claude plan.';
+    $('clientwhy').textContent = devin ? 'Devin CLI, with EVE Desktop’s safety check.'
+      : pi ? 'Pi CLI, local models too, with EVE Desktop’s safety check.'
       : P.apiBase ? 'Uses your server below.' : 'No API key needed.';
     document.querySelector('[data-k=routing]').closest('.row').hidden = other || !!P.apiBase;
     document.querySelector('[data-k=model]').closest('.row').hidden = other || !!P.apiBase || P.routing === 'cheapest';
@@ -682,7 +718,7 @@
 
   function paintRoutines() {
     const root = $('routines'); root.replaceChildren();
-    if (!P.routines?.length) { const empty = document.createElement('div'); empty.className = 'empty'; empty.textContent = 'No routines yet. Ask Atticus to schedule one.'; root.append(empty); return; }
+    if (!P.routines?.length) { const empty = document.createElement('div'); empty.className = 'empty'; empty.textContent = 'No routines yet. Ask EVE Desktop to schedule one.'; root.append(empty); return; }
     for (const routine of P.routines) {
       const row = document.createElement('div'); row.className = 'row rule';
       const text = document.createElement('div'); text.className = 't';
@@ -802,7 +838,7 @@
     e.onkeydown = ev => { if (ev.key === 'Enter') e.blur(); }; });
   ['apiModel', 'agentApiModel'].forEach(k => $(k).onfocus = () => { if (P.apiBase) post({ do: 'models' }); });
 
-  // Apps: every installed app; suggested ones start ticked. Atticus.swift asks macOS about the ticked ones in one go.
+  // Apps: every installed app; suggested ones start ticked. EVE Desktop.swift asks macOS about the ticked ones in one go.
   let APPS = [], pick = null, asking = 0, total = 0, view = 'key';
   function appRow(a) {
     const end = a.status === 'allowed' ? '<span class="pill ok">Allowed</span>'
@@ -942,7 +978,7 @@
       document.querySelectorAll('[data-g]').forEach(b => { b.hidden = !!p[b.dataset.g]; b.previousElementSibling.hidden = !p[b.dataset.g]; });
     },
     notice(n) { showNotice(n.text); },
-    flush() { return flush(false); },   // the window is closing: Atticus.swift runs the waiting deletion
+    flush() { return flush(false); },   // the window is closing: EVE Desktop.swift runs the waiting deletion
     tab(name) { openSection(name); },
     reveal(item) { want = item; reveal(); },
     apps(list) {
@@ -959,13 +995,36 @@
     agents({ count }) { $('agentcount').textContent = count ? count + ' running' : ''; $('agentsnav').setAttribute('aria-label', count ? `Open Agents, ${count} running` : 'Open Agents'); },
     dictation(d) { dictations = d; paintDictation(); },
     globe(on) { $('globefix').hidden = !on; },   // fn alone also fires macOS's own 🌐 action
+    elevenVoices(result) {
+      if (result.status === 'loading') { elevenState = 'loading'; paintElevenVoices(); return; }
+      if (result.status === 'error') {
+        elevenState = 'error'; $('elevenStatus').dataset.error = result.message || 'Couldn’t load voices. Retry.'; paintElevenVoices(); return;
+      }
+      elevenVoices = Array.isArray(result.voices) ? result.voices : [];
+      elevenState = elevenVoices.length ? 'ok' : 'empty';
+      const options = elevenVoices.map(v => new Option(v.name + (v.language === 'de' ? ' · German' : ''), v.id));
+      const known = elevenVoices.some(v => v.id === P.elevenlabsVoice);
+      if (!known && P.elevenlabsVoice) options.unshift(new Option(`${P.elevenlabsVoiceName || 'Saved voice'} · unavailable`, P.elevenlabsVoice));
+      $('elevenVoice').replaceChildren(...options);
+      if (P.elevenlabsVoice) $('elevenVoice').value = P.elevenlabsVoice;
+      paintElevenVoices();
+    },
+    elevenTest(result) {
+      if (result.status === 'playing') { elevenTesting = true; $('elevenStatus').textContent = 'Generating voice sample…'; $('elevenStatus').className = ''; }
+      else {
+        elevenTesting = false;
+        if (result.status === 'error') { $('elevenStatus').dataset.error = result.message; elevenState = 'error'; }
+        else if (result.status === 'done') showNotice('Voice sample finished.');
+      }
+      paintElevenVoices();
+    },
     load(d) {
-      P = {talkMode: 'hold', dictateMode: 'verbatim', dictateHotkeyLabel: '', microphone: 'automatic', meetingSave: true, meetingSummary: true, client: 'claude', ...d.prefs}; recording = '';
+      P = {talkMode: 'hold', dictateMode: 'verbatim', dictateHotkeyLabel: '', microphone: 'automatic', meetingSave: true, meetingSummary: true, ttsProvider: 'system', elevenlabsModel: 'eleven_flash_v2_5', client: 'claude', ...d.prefs}; recording = '';
       P.routines = d.routines || []; paintRoutines();
       $('shortcut').classList.remove('rec'); $('change').textContent = 'Change Shortcut'; $('dictatechange').classList.remove('rec');
       hotkeyTaken = !!d.hotkeyTaken; dictateHotkeyTaken = !!d.dictateHotkeyTaken; if ($('schint').className !== 'warn') $('schint').className = hotkeyTaken ? 'taken' : '';
       if (d.icon) $('icon').src = $('bigicon').src = d.icon;
-      $('ver').textContent = $('aboutver').textContent = d.version ? 'Version ' + d.version : 'Atticus';
+      $('ver').textContent = $('aboutver').textContent = d.version ? 'Version ' + d.version : 'EVE Desktop';
       $('autoUpdateRow').hidden = $('checkUpdate').hidden = !!d.managedUpdates;
       $('sharingUnavailable').hidden = !d.sharingUnavailable;
       $('updateTitle').textContent = d.managedUpdates ? 'Updates are managed by Nix' : 'Check for updates';
@@ -973,6 +1032,7 @@
       if (d.mics) this.mics(d.mics);
       this.globe(d.globeTaken);
       paint(); if (!P.apiBase) post({do:'localServers'}); if (d.state) state(d.state);
+      if (P.speak && P.ttsProvider === 'elevenlabs' && elevenState === 'idle') requestElevenVoices();
     },
     mics(list) {
       const select = document.querySelector('[data-k="microphone"]'), value = P.microphone;
@@ -980,9 +1040,9 @@
       select.value = [...select.options].some(o => o.value === value) ? value : 'automatic';
     },
     rec(m) { if (recording === 'dictate') /^Add/.test(m) || !m ? showKeys('', m || 'Type Shortcut') : showKeys(m); else if (recording) /^Add/.test(m) ? showCaps('', m) : showCaps(m, m ? '' : 'Press your shortcut'); },   // held modifiers, live
-    taken(kind, own) {   // own: the keys are Atticus's other shortcut
+    taken(kind, own) {   // own: the keys are EVE Desktop's other shortcut
       const dictate = kind === 'dictate', line = $(dictate ? 'dictatehint' : 'schint');
-      line.textContent = own ? `That’s already your ${dictate ? 'Atticus' : 'dictation'} shortcut. Kept your old one.` : 'Another app already uses that shortcut. Kept your old one.'; line.className = 'warn';
+      line.textContent = own ? `That’s already your ${dictate ? 'EVE Desktop' : 'dictation'} shortcut. Kept your old one.` : 'Another app already uses that shortcut. Kept your old one.'; line.className = 'warn';
       setTimeout(() => { line.className = ''; paint(); if (!dictate) { $('schint').className = hotkeyTaken ? 'taken' : ''; $('schint').textContent = shortcutHint(); } }, 4000);
     },
     state,

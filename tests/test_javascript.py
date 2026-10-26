@@ -67,7 +67,7 @@ const nodes=new Map(),$=id=>{if(!nodes.has(id))nodes.set(id,{textContent:''});re
 paintDone({claude:false,mic:true,speech:false,ax:false});
 if($('done-title').textContent!=='Setup isn’t finished yet'||!$('done-sub').textContent.includes('AI provider, Speech Recognition, Accessibility')||$('finish').textContent!=='Finish Setup Later')process.exit(1);
 paintDone({claude:true,mic:true,speech:true,ax:false});
-if($('done-title').textContent!=='Voice is ready'||$('finish').textContent!=='Start Using Atticus')process.exit(2);
+if($('done-title').textContent!=='Voice is ready'||$('finish').textContent!=='Start Using EVE Desktop')process.exit(2);
 '''
         result = subprocess.run(['node', '--input-type=module'], input=script, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -111,7 +111,7 @@ expect(md('snake_case_name and _em_'),'<p>snake_case_name and <em>em</em></p>','
         root = Path(__file__).resolve().parents[1]
         page = (root / 'ui' / 'ui.html').read_text()
         native = (root / 'Atticus.swift').read_text()
-        self.assertIn('Atticus’s helper couldn’t start', page)
+        self.assertIn('EVE Desktop’s helper couldn’t start', page)
         self.assertIn("post({workerRetry:true})", page)
         self.assertIn("post({setup:true})", page)
         self.assertIn('pinned = true; js("workerFailed"); show()', native)

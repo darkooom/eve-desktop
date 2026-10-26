@@ -78,8 +78,8 @@ for(const e of $('improve').children){const r=e.getBoundingClientRect();assert(r
 assert($('improve').textContent.includes('Anonymous')&&d.querySelector('#improve .bar2 .btn:not(.quiet)').textContent==='Help Improve','Improve page says what is sent; Help Improve is the main action');
 d.querySelector('#improve [data-improve="true"]').click();await until(()=>d.querySelector('.page.on')?.id==='tip','tip page');page('tip');
 for(const e of $('tip').children){const r=e.getBoundingClientRect();assert(r.left>=0&&r.right<=640&&r.top>=0&&r.bottom<=612,'Fits window tip / '+(e.id||e.className))}
-assert($('tip').textContent.includes('really support me')&&$('kofi').textContent.includes('Leave a Tip'),'Tip page asks for a tip on its own screen');
-$('kofi').click();await until(()=>messages.some(m=>m.do==='kofi'),'tip request');assert(true,'Leave a Tip opens the tip page');assert(d.querySelector('.page.on').id==='tip','Tipping stays on the tip page');
+assert($('tip').textContent.includes('original Atticus author')&&$('kofi').textContent.includes('Tip SaarthurR'),'Tip page clearly credits the original author');
+$('kofi').click();await until(()=>messages.some(m=>m.do==='kofi'),'tip request');assert(true,'Tip SaarthurR opens the tip page');assert(d.querySelector('.page.on').id==='tip','Tipping stays on the tip page');
 await go('done');
 w.ob.prefs({...P0,dictateHotkeyLabel:'fn⌃⌥⇧⌘Return'});
 assert($('ideas').textContent.includes('Convert this JPEG to PNG'),'Things to try includes file conversion');

@@ -43,7 +43,7 @@ class RepoFixTests(unittest.TestCase):
         self.assertIn('<string>$BUILD</string>', build)
         self.assertIn('<string>$VERSION</string>', build)
         self.assertIn('command -v python3', build)
-        self.assertIn('Could not add Atticus to Login Items; opening it directly instead.', build)
+        self.assertIn('Could not add EVE Desktop to Login Items; opening it directly instead.', build)
         self.assertIn('open "$APP"', build)
 
     def test_nix_installs_its_packaged_source(self):

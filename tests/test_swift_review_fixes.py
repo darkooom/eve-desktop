@@ -135,7 +135,7 @@ print("hidden rewrite target kept")
         self.assertIn("hidden rewrite target kept", run_swift(self, harness))
 
     def test_pointer_respects_reduce_motion(self):
-        pointer = self.swift[self.swift.index("func pointAt("):self.swift.index("// Restart Atticus", self.swift.index("func pointAt("))]
+        pointer = self.swift[self.swift.index("func pointAt("):self.swift.index("// Restart EVE Desktop", self.swift.index("func pointAt("))]
         self.assertIn("let still = NSWorkspace.shared.accessibilityDisplayShouldReduceMotion\n    if !still {", pointer)
         self.assertLess(pointer.index("accessibilityDisplayShouldReduceMotion"), pointer.index("l.add(pulse"))
         self.assertIn("if let box, lead(from: box, to: w.frame.insetBy(dx: 8, dy: 8)) {", pointer)

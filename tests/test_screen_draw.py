@@ -147,10 +147,10 @@ class DrawingTests(unittest.TestCase):
             self.assertNotIn('--draw',atticus.system_prompt(atticus.ASK_FIRST))
             with self.assertRaisesRegex(ValueError,'off'): atticus.draw({'steps':[]})
         prompt = atticus.system_prompt(atticus.ASK_FIRST)
-        installed = str(Path.home()/'Applications/Atticus.app/Contents/Resources/atticus.py')
+        installed = str(Path.home()/'Applications/EVE Desktop.app/Contents/Resources/atticus.py')
         self.assertIn('--draw',prompt)
         self.assertIn('use ' + atticus.DRAW + ' once on Request screen unless user names another',prompt)
-        self.assertLessEqual(len(prompt.replace(atticus.ME,installed)),10050)   # +50 for the send-to-running-input rule (1.3.2)
+        self.assertLessEqual(len(prompt.replace(atticus.ME,installed)),10175)   # branded bundle path is longer than Atticus.app
         self.assertIn('draw',atticus.switches())
         self.assertFalse(atticus.replayable(atticus.DRAW + " '{}'"))
 

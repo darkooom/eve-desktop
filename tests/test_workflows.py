@@ -222,7 +222,7 @@ class WorkflowTests(unittest.TestCase):
             self.assertIsNone(atticus.fast('remember how to create calendar event'))
         full = atticus.SYSTEM + atticus.ASK_ME + atticus.POINTER + atticus.LEARN_ME + atticus.TEACH + atticus.ASK_FIRST + atticus.WORKFLOW
         self.assertLessEqual(len(full), 10000)
-        installed = os.path.expanduser("~/Applications/Atticus.app/Contents/Resources/atticus.py")
+        installed = os.path.expanduser("~/Applications/EVE Desktop.app/Contents/Resources/atticus.py")
         self.assertLessEqual(len(full.replace(atticus.ME, installed)), 10000)
 
     def test_interrupted_shortcut_save_preserves_private_previous_file(self):

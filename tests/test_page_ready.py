@@ -23,7 +23,7 @@ class PageReadyTests(unittest.TestCase):
                      patch.object(atticus.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0, '', '')) as run:
                     self.assertTrue(atticus.background_tab('https://new.invalid/', 'Browser Fixture'))
                 self.assertIn(target, run.call_args.args[0][2])
-                self.assertIn('Atticus page changed', run.call_args.args[0][2])
+                self.assertIn('EVE Desktop page changed', run.call_args.args[0][2])
                 self.assertEqual(run.call_args.args[0][-2:], ['https://old.invalid/', 'https://new.invalid/'])
                 page = json.loads(Path(scratch, 'web.json').read_text())
                 self.assertEqual((page['window'], page['tab'], page['target']), (10, 2, None))
